@@ -168,10 +168,10 @@ export default function page() {
 
                         {/* Partners Carousel */}
                         <div className={`${style.contentIntro}`}>
-                            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-100">
+                            <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg border border-gray-100">
                                 <div className="text-center mb-8">
-                                    <h3 className="text-3xl font-bold text-[#005db2] mb-4">Đối Tác & Khách Hàng Tiêu Biểu</h3>
-                                    <p className="text-gray-600 text-lg max-w-3xl mx-auto">Sự tin tưởng và hợp tác của quý đối tác, khách hàng là nền tảng cho sự phát triển bền vững của Hitech.</p>
+                                    <h3 className="text-2xl md:text-3xl font-bold text-[#005db2] mb-4">Đối Tác & Khách Hàng Tiêu Biểu</h3>
+                                    <p className="text-gray-600 text-base md:text-lg max-w-3xl mx-auto">Sự tin tưởng và hợp tác của quý đối tác, khách hàng là nền tảng cho sự phát triển bền vững của Hitech.</p>
                                 </div>
 
                                 <div className="relative overflow-hidden rounded-lg">
@@ -182,7 +182,7 @@ export default function page() {
                                     >
                                         {carouselPartners.map((partner, idx) => (
                                             <div key={idx} className="w-full flex-shrink-0">
-                                                <div className="relative w-full h-[500px]">
+                                                <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px]">
                                                     <Image
                                                         src={partner.src}
                                                         alt={partner.alt}
@@ -193,8 +193,8 @@ export default function page() {
                                                     />
                                                 </div>
                                                 <div className="mt-4 text-center p-4">
-                                                    <h4 className="font-semibold text-[#005db2] text-xl mb-1">{partner.title}</h4>
-                                                    <p className="text-gray-600 text-base">{partner.alt}</p>
+                                                    <h4 className="font-semibold text-[#005db2] text-lg md:text-xl mb-1">{partner.title}</h4>
+                                                    <p className="text-gray-600 text-sm md:text-base">{partner.alt}</p>
                                                 </div>
                                             </div>
                                         ))}
