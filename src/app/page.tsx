@@ -72,46 +72,6 @@ export default function Home() {
     }
   ];
   const [logos] = useState([
-<<<<<<< HEAD
-    {
-      id: 1,
-      src: "/partners/Logo-hanh-chinh-cong.jpg",
-      alt: "Logo Viettel Post",
-      widthRatio: 8,
-    },
-    {
-      id: 2,
-      src: "/partners/bo-y-te.png",
-      widthRatio: 8,
-    },
-    {
-      id: 3,
-      src: "/partners/logo-giao-duc-2.jpg",
-      widthRatio: 5,
-    },
-    {
-      id: 4,
-      src: "/partners/bidv-logo.png",
-      widthRatio: 5,
-      width: '100%',
-    },
-    {
-      id: 5,
-      src: "/partners/niad-logo-2.jpg",
-      widthRatio: 5,
-      width: '100%',
-    },
-    {
-      id: 6,
-      src: "/partners/virtnam-post-logo.png",
-      widthRatio: 5,
-      width: '100%',
-    }
-  ])
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 11) % items.length);
-=======
     "/partners/Logo-hanh-chinh-cong.jpg",
     "/partners/bo-y-te.png",
     "/partners/logo-giao-duc-2.jpg",
@@ -122,7 +82,6 @@ export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 11) % items.length);                                   
->>>>>>> 255b29b (Initial commit: Add existing project files)
   };
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + items.length) % items.length);
@@ -199,11 +158,7 @@ export default function Home() {
               <div className="flex-[9] bg-[#f8b133]"></div>
             </div>
             <h2 className="mt-4">
-<<<<<<< HEAD
-              DỰ ÁN TIÊU BIỂU CỦA CHÚNG TÔI
-=======
               CÁC THỰC TẬP VIÊN ĐANG  HỌC TRÊN CÁC DỰ ÁN THỰC TẾ
->>>>>>> 255b29b (Initial commit: Add existing project files)
             </h2>
           </div>
         </div>
@@ -509,20 +464,6 @@ export default function Home() {
               ĐỐI TÁC & KHÁCH HÀNG
             </h2>
           </div>
-<<<<<<< HEAD
-          <div className={`${style.swiper} mt-[30px] w-full h-full`}>
-            <div
-              className={`${style.swiperWrapper}`}
-              style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap' }}>
-              <div className="w-full overflow-hidden bg-white py-4 relative">
-                <div className="flex gap-16 animate-slide">
-                  {[...logos, ...logos].map((logo, index) => (
-                    <div key={index} className="flex-shrink-0 w-[calc(100%/8)] flex justify-center items-center " style={{ width: `calc(100% / ${logo.widthRatio})` }} >
-                      <Image width={1000} height={300}
-                        className='w-auto max-w-full max-h-full'
-                        style={{ width: logo.width }}
-                        src={logo.src} alt={logo.src} />
-=======
           <div className={`${style.swiperContainer} mt-[30px] w-full h-full`}>
             <div className={`${style.swiperWrapper}`} style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap' }}>
               <div className="w-full overflow-hidden bg-white py-4 relative">
@@ -530,7 +471,6 @@ export default function Home() {
                   {[...logos, ...logos].map((logo, index) => (
                     <div key={index} className="flex-shrink-0 w-[calc(100%/6)]">
                       <Image width={1000} height={300} className='w-full h-auto max-w-[80%] max-h-[50%] min-w-[60%] min-h-[50%]' src={logo} alt={`Logo ${index + 1}`} />
->>>>>>> 255b29b (Initial commit: Add existing project files)
                     </div>
                   ))}
                 </div>

@@ -15,89 +15,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-<<<<<<< HEAD
-  const banerTop = [
-    {
-      id: 1,
-      imageSrc1: '/banner/slider-niad1.png',
-      imageSrc2: '/banner/slider-níad2.png',
-      span1: 'NIAD CUNG CẤP, CHO THUÊ ATM, CRM, TCR VÀ SYSTEM',
-      span2: 'SẢN PHẨM XE CHỞ TIỀN LẦN ĐẦU TIÊN ĐƯỢC LẮP RÁP TẠI VIỆT NAM',
-      imgAlt: 'Global AI Summit',
-      href_1: 'https://www.nganluc.vn/vn/cung-cap-cho-thue-atm-va-thiet-bi-back-end-system.html',
-      href_2: 'https://www.nganluc.vn/vn/ban-xe-oto-thuong-mai-chuyen-dung.html',
-    },
-    {
-      id: 2,
-      imageSrc1: '/banner/slider-níad2.png',
-      imageSrc2: '/banner/slider-niad1.png',
-      span2: 'NIAD CUNG CẤP, CHO THUÊ ATM, CRM, TCR VÀ SYSTEM',
-      span1: 'SẢN PHẨM XE CHỞ TIỀN LẦN ĐẦU TIÊN ĐƯỢC LẮP RÁP TẠI VIỆT NAM',
-      imgAlt: 'Global AI Summit',
-      href_1: 'https://www.nganluc.vn/vn/cung-cap-cho-thue-atm-va-thiet-bi-back-end-system.html',
-      href_2: 'https://www.nganluc.vn/vn/ban-xe-oto-thuong-mai-chuyen-dung.html',
-    },
-    {
-      id: 3,
-      imageSrc1: '/banner/slider-niad1.png',
-      imageSrc2: '/banner/slider-níad2.png',
-      span1: 'NIAD CUNG CẤP, CHO THUÊ ATM, CRM, TCR VÀ SYSTEM',
-      span2: 'SẢN PHẨM XE CHỞ TIỀN LẦN ĐẦU TIÊN ĐƯỢC LẮP RÁP TẠI VIỆT NAM',
-      imgAlt: 'Global AI Summit',
-      href_1: 'https://www.nganluc.vn/vn/cung-cap-cho-thue-atm-va-thiet-bi-back-end-system.html',
-      href_2: 'https://www.nganluc.vn/vn/ban-xe-oto-thuong-mai-chuyen-dung.html',
-    },
-    {
-      id: 4,
-      imageSrc1: '/banner/slider-níad2.png',
-      imageSrc2: '/banner/slider-niad1.png',
-      span2: 'BIC CUNG CẤP, CHO THUÊ ATM, CRM, TCR VÀ SYSTEM',
-      span1: 'SẢN PHẨM XE CHỞ TIỀN LẦN ĐẦU TIÊN ĐƯỢC LẮP RÁP TẠI VIỆT NAM',
-      imgAlt: 'Global AI Summit',
-      href_1: 'https://www.nganluc.vn/vn/cung-cap-cho-thue-atm-va-thiet-bi-back-end-system.html',
-      href_2: 'https://www.nganluc.vn/vn/ban-xe-oto-thuong-mai-chuyen-dung.html',
-    },
-    //   {
-    //     id: 2,
-    //     imageSrc1: '/banner/uu-dai-ron-rang-van-dam-binh-an.jpg',
-    //     imageSrc2: '/banner/bic-giam-15-phi-bao-hiem-tnds-xe-may-tri-an-khach-hang-tai-tuc.jpg',
-    //     span1: 'Ưu đãi rộn ràng, nạn rặng đường xa',
-    //     span2: 'Sống đẳng cấp trọn an tâm cùng BIC samrt care',
-    //     imgAlt: 'Banner Top 2025',
-    //   },
-    //   {
-    //     id: 3,
-    //     imageSrc1: '/banner/song-dang-cap-tron-an-tam-cung-bic-smart-care.jpg',
-    //     imageSrc2: '/banner/uu-dai-ron-rang-van-dam-binh-an.jpg',
-    //     span1: 'Sống đẳng cấp trọn an tâm cùng BIC samrt care',
-    //     span2: 'Ưu đãi rộn ràng, nạn rặng đường xa',
-    //     imgAlt: 'Global AI Summit',
-    //   },
-    //   {
-    //     id: 4,
-    //     imageSrc1: '/banner/bic-giam-15-phi-bao-hiem-tnds-xe-may-tri-an-khach-hang-tai-tuc.jpg',
-    //     imageSrc2: '/banner/song-dang-cap-tron-an-tam-cung-bic-smart-care.jpg',
-    //     span1: 'BIC giảm 15% phí bảo hiểm TNDS xe máy tri ân khách hàng tái tục',
-    //     span2: 'Sống đẳng cấp trọn an tâm cùng BIC samrt care',
-    //     imgAlt: 'Global AI Summit',
-    //   },
-    //   {
-    //     id: 5,
-    //     imageSrc1: '/banner/uu-dai-ron-rang-van-dam-binh-an.jpg',
-    //     imageSrc2: '/banner/bic-giam-15-phi-bao-hiem-tnds-xe-may-tri-an-khach-hang-tai-tuc.jpg',
-    //     span1: 'Ưu đãi rộn ràng, nạn rặng đường xa',
-    //     span2: 'Sống đẳng cấp trọn an tâm cùng BIC samrt care',
-    //     imgAlt: 'Banner Top 2025',
-    //   },
-    //   {
-    //     id: 6,
-    //     imageSrc1: '/banner/song-dang-cap-tron-an-tam-cung-bic-smart-care.jpg',
-    //     imageSrc2: '/banner/uu-dai-ron-rang-van-dam-binh-an.jpg',
-    //     span1: 'Sống đẳng cấp trọn an tâm cùng BIC samrt care',
-    //     span2: 'Ưu đãi rộn ràng, nạn rặng đường xa',
-    //     imgAlt: 'Global AI Summit',
-    //   },
-=======
   const pathname = usePathname();
 
   // Nếu là trang admin thì chỉ render children, không render banner, aside, header...
@@ -158,7 +75,6 @@ export default function RootLayout({
       span2: 'Ưu đãi rộn ràng, nạn rặng đường xa',
       imgAlt: 'Global AI Summit',
     },
->>>>>>> 255b29b (Initial commit: Add existing project files)
   ];
 
   const extendedBanners = [
@@ -192,10 +108,6 @@ export default function RootLayout({
       setIsTransitioning(true);
     }
   }, [currentIndex, extendedBanners.length]);
-<<<<<<< HEAD
-  const pathname = usePathname();
-=======
->>>>>>> 255b29b (Initial commit: Add existing project files)
   const [isLoading, setIsLoading] = useState(false);
 
   const getMetadata = (path: string) => {
@@ -301,17 +213,6 @@ export default function RootLayout({
                         {banner.span1}
                       </span>
                     </div>
-<<<<<<< HEAD
-                    <Link className="w-full cursor-pointer" href={banner.href_1}>
-                      <Image
-                        className={`${style.bannerG} object-cover max-h-full h-[18vh] w-full px-[1px] max-720:w-full`}
-                        width={1000}
-                        height={300}
-                        src={banner.imageSrc1}
-                        alt={banner.imgAlt}
-                      />
-                    </Link>
-=======
                     <Image
                       className={`${style.bannerG} object-cover max-h-full h-[18vh] w-1/2 px-[1px] max-720:w-full`}
                       width={1000}
@@ -319,23 +220,11 @@ export default function RootLayout({
                       src={banner.imageSrc1}
                       alt={banner.imgAlt}
                     />
->>>>>>> 255b29b (Initial commit: Add existing project files)
                     <div className="absolute float-left left-1/2 w-[335px] h-full flex items-center ml-3 text-xl font-bold text-white drop-shadow-[1px_1px_1px_#006e3b] max-1200:w-[250px] max-1083:text-base max-1083:w-[200px] max-720:hidden">
                       <span>
                         {banner.span2}
                       </span>
                     </div>
-<<<<<<< HEAD
-                    <Link className="w-full cursor-pointer max-720:!hidden" href={banner.href_2}>
-                      <Image
-                        className={`${style.bannerG} object-cover max-h-full h-[18vh] w-full px-[1px] max-720:!hidden`}
-                        width={1000}
-                        height={300}
-                        src={banner.imageSrc2}
-                        alt={banner.imgAlt}
-                      />
-                    </Link>
-=======
                     <Image
                       className={`${style.bannerG} object-cover max-h-full h-[18vh] w-1/2 px-[1px] max-720:hidden`}
                       width={1000}
@@ -343,7 +232,6 @@ export default function RootLayout({
                       src={banner.imageSrc2}
                       alt={banner.imgAlt}
                     />
->>>>>>> 255b29b (Initial commit: Add existing project files)
                   </div>
                 ))}
               </div>
@@ -379,11 +267,7 @@ export default function RootLayout({
               <aside className={`${style.banerRight} w-[15%] top-[20vh] bg-gray-100 fixed right-0 h-[100vh] z-[999]`}>
                 <div>
                   <div className='p-2 !pt-0 mb-2'>
-<<<<<<< HEAD
-                    <Link href={'https://bic.vn/ttsp/bao-hiem-suc-khoe/bic-smart-care-bao-hiem-suc-khoe-cao-cap.html'}>
-=======
                     <Link href={'#'}>
->>>>>>> 255b29b (Initial commit: Add existing project files)
                       <Image className='w-full h-[20vh]' width={700} height={70} src="/banner/bic-smart-care-bao-hiem-suc-khoe-cao-cap.jpg" alt="image banner left" />
                       <div className='mt-3'>
                         <div className='text-sm text-gray-500 mb-2 max-1316:text-sx max-1083:text-[.9rem] max-800:text-[.6rem]'>18.02.2025</div>
@@ -394,11 +278,7 @@ export default function RootLayout({
                     </Link>
                   </div>
                   <div className='p-2 !pt-0'>
-<<<<<<< HEAD
-                    <Link href={'https://bic.vn/ttsp/bao-hiem-suc-khoe/bao-hiem-y-te-bo-tro.html'}>
-=======
                     <Link href={'#'}>
->>>>>>> 255b29b (Initial commit: Add existing project files)
                       <Image className='w-full h-[20vh]' width={700} height={70} src="/banner/bao-hiem-y-te-bo-tro.jpg" alt="image banner left" />
                       <div className='mt-3'>
                         <div className='text-sm text-gray-500 mb-2 max-1316:text-sx max-1083:text-[.9rem] max-800:text-[.6rem]'>18.02.2025</div>

@@ -4,10 +4,6 @@ import emailjs from "@emailjs/browser";
 import style from "@/app/style/styles.module.css";
 import Navigation from '@/components/navigation';
 import Footer from "@/components/Footer";
-<<<<<<< HEAD
-import BannerSlider from '@/components/BannerSlider';
-import Link from "next/link";
-=======
 import RecruitmentBanner from "@/components/Recruitmentbanner"
 import HexagonImage from "@/components/HexagonImage";
 import Link from "next/link";
@@ -17,7 +13,6 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"; 
 import { uploadFileToDrive } from '@/utils/googleDriveUpload';
->>>>>>> 255b29b (Initial commit: Add existing project files)
 
 export default function recruitment() {
     const [showForm, setShowForm] = useState(false);
@@ -36,13 +31,6 @@ export default function recruitment() {
         message: '',
     });
 
-<<<<<<< HEAD
-    const formRef = useRef<HTMLFormElement | null>(null);
-
-    const handleClick = () => {
-        setShowForm(true);
-        document.body.style.overflow = "hidden"; // Chặn cuộn trang khi hiển thị form
-=======
     const [cvFile, setCvFile] = useState<File | null>(null);
     const [recruitmentData, setRecruitmentData] = useState<any>(null);
     const formRef = useRef<HTMLFormElement | null>(null);
@@ -53,27 +41,16 @@ export default function recruitment() {
     const handleClick = () => {
         setShowForm(true);
         document.body.style.overflow = "hidden";
->>>>>>> 255b29b (Initial commit: Add existing project files)
     };
 
     const handleClickOff = () => {
         setShowForm(false);
-<<<<<<< HEAD
-        document.body.style.overflow = "auto"; // Khôi phục cuộn trang khi đóng form
-=======
         document.body.style.overflow = "auto";
->>>>>>> 255b29b (Initial commit: Add existing project files)
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-<<<<<<< HEAD
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-=======
     const RoundImage = ({ src, alt, className = "" }: { src: string; alt?: string; className?: string }) => (
     <img src={src} alt={alt} className={`rounded-full border-4 border-[#1553ad] object-cover ${className}`} />
     );
@@ -84,24 +61,10 @@ export default function recruitment() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
->>>>>>> 255b29b (Initial commit: Add existing project files)
         if (!formRef.current) {
             console.error("Form reference is null");
             return;
         }
-<<<<<<< HEAD
-
-        try {
-            const result = await emailjs.sendForm(
-                'service_465',  // Service ID 
-                'template_1210',  // Template 
-                formRef.current, //
-                'xK1xvHBDf9fjhLR_D',    // Public Key
-            );
-
-            alert("Hồ sơ đã gửi thành công!");
-            setFormData({ position: '', name: '', university: '', specialized: '', skill: '', project: '', studentyear: '', email: '', phone: '', message: '' });
-=======
         if (!cvFile) {
             alert("Vui lòng tải lên file CV (PDF)");
             return;
@@ -125,7 +88,6 @@ export default function recruitment() {
             alert("Hồ sơ đã gửi thành công!");
             setFormData({ position: '', name: '', university: '', specialized: '', skill: '', project: '', studentyear: '', email: '', phone: '', message: '' });
             setCvFile(null);
->>>>>>> 255b29b (Initial commit: Add existing project files)
             setShowForm(false);
         } catch (error) {
             alert("Có lỗi xảy ra, vui lòng thử lại!");
@@ -133,31 +95,6 @@ export default function recruitment() {
         }
     };
 
-<<<<<<< HEAD
-    const reacuitments = [
-        {
-            id: 1,
-            location: ' Intern Front End',
-            wage: 'Thỏa thuận',
-            address: 'Hà Nội',
-            time: ' Hạn hồ sơ 30/03/2025',
-        },
-        {
-            id: 2,
-            location: 'Intern Back End',
-            wage: 'Thỏa thuận',
-            address: 'Hà Nội',
-            time: ' Hạn hồ sơ 30/03/2025',
-        },
-        {
-            id: 3,
-            location: 'Intern Ai (Python)',
-            wage: 'Thỏa thuận',
-            address: 'Hà Nội',
-            time: ' Hạn hồ sơ 30/03/2025',
-        }
-    ];
-=======
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             setCvFile(e.target.files[0]);
@@ -176,7 +113,6 @@ export default function recruitment() {
         });
     }, []);
 
->>>>>>> 255b29b (Initial commit: Add existing project files)
     return (
         <main className={`${style.mainIndex} w-[70%] bg-white ml-[15%] mr-[15%] relative top-[20vh] flex flex-col shadow-md`}>
             <div className='w-full h-10 bg-[#005db2] flex items-center'>
@@ -188,9 +124,6 @@ export default function recruitment() {
                 </div>
             </div>
             <Navigation />
-<<<<<<< HEAD
-            <BannerSlider />
-=======
             {/* Banner động */}
             {recruitmentData && recruitmentData.banner && (
                 <RecruitmentBanner 
@@ -361,29 +294,19 @@ export default function recruitment() {
             )}
 
             {/* --- CƠ HỘI NGHỀ NGHIỆP --- */}
->>>>>>> 255b29b (Initial commit: Add existing project files)
             <section className={`py-[3.125rem]`}>
                 <div className='w-full px-4 mx-auto'>
                     <div className='flex items-center justify-center flex-col flex-grow'>
                         <h2 className='text-black text-[32px] font-bold text-center uppercase'>
-<<<<<<< HEAD
-                            CƠ HỘI NGHỀ NGHIỆP
-=======
                             {recruitmentData?.recruitmentsTitle || 'CƠ HỘI NGHỀ NGHIỆP'}
->>>>>>> 255b29b (Initial commit: Add existing project files)
                         </h2>
                         <span className='bg-[#db0d0d] w-20 h-1 mt-2 mb-6'></span>
                     </div>
                 </div>
                 <div className={`${style.container} w-full px-7 py-4 mx-auto`}>
                     <div className='justify-center flex flex-wrap'>
-<<<<<<< HEAD
-                        {reacuitments.map(recruitment => (
-                            <div key={recruitment.id} className='p-6 mb-4 cursor-default w-full mx-auto' style={{ borderBottom: '1px solid #e0e0e0' }}>
-=======
                         {recruitmentData?.recruitments?.map((recruitment: any, idx: number) => (
                             <div key={idx} className='p-6 mb-4 cursor-default w-full mx-auto' style={{ borderBottom: '1px solid #e0e0e0' }}>
->>>>>>> 255b29b (Initial commit: Add existing project files)
                                 <div className='flex flex-wrap'>
                                     <div className='pl-0 flex-col flex flex-grow relative pr-4 w-1/2'>
                                         <div>
@@ -445,196 +368,6 @@ export default function recruitment() {
                     </div>
                 </div>
             </section>
-<<<<<<< HEAD
-            <div id='bgForm' className={`${showForm ? "!block" : "hidden"} fixed top-[0] left-0 w-full h-full bg-[#000000] opacity-50 z-[9999]`}></div>
-            {showForm && (
-                <section
-                    className="fixed h-[98%] max-h-[80%] min-h-[200px] p-6 left-1/2 bg-white flex z-[9999] w-[600px] top-[21%] rounded-lg shadow-[0_2px_8px_rgba(0,0,0,.16)] border-t-4 border-solid border-[#2680eb] overflow-y-hidden flex-col max-726:w-[90%] max-726:!h-[75%] max-726:max-h-full max-726:mx-auto max-500:top-[15%]"
-                    style={{ transform: 'translateX(-50%)' }}
-                >
-                    <div className='absolute w-[calc(100%-48px)] justify-between flex'>
-                        <div className='text-base font-bold absolute'>Nộp Hồ Sơ</div>
-                        <button className="absolute top-0 right-2" onClick={handleClickOff}>✖</button>
-                    </div>
-                    <form ref={formRef} onSubmit={handleSubmit} className="mt-8 overflow-y-auto overflow-x-hidden">
-                        <div className="mt-8 overflow-y-auto overflow-x-hidden">
-                            <div className='w-[98%] h-auto'>
-                                <div className='w-full mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>Chọn vị trí ứng tuyển</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <select
-                                            name="position"
-                                            value={formData.position}
-                                            onChange={handleChange}
-                                            required
-                                            className="px-4 h-10 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                        >
-                                            <option className='opacity-50' value=""></option>
-                                            <option value="TTS Frontend">TTS Frontend</option>
-                                            <option value="TTS Backend">TTS Backend</option>
-                                            <option value="TTS Python">TTS Python</option>
-                                            <option value="TTS Fullstack">TTS Fullstack</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className='w-full mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>Họ và tên</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <input
-                                            className="px-4 h-10 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                            type="text"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div className='w-full mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>Trường đại học</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <input
-                                            type="text"
-                                            name="university"
-                                            value={formData.university}
-                                            onChange={handleChange}
-                                            required
-                                            className="px-4 h-10 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                        />
-                                    </div>
-                                </div>
-                                <div className='w-full mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>Chuyên nghành</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <input
-                                            type="text"
-                                            name="specialized"
-                                            value={formData.specialized}
-                                            onChange={handleChange}
-                                            required
-                                            className="px-4 h-10 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                        />
-                                    </div>
-                                </div>
-                                <div className='w-full mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>Sinh viên năm học</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <select
-                                            name="studentyear"
-                                            value={formData.studentyear}
-                                            onChange={handleChange}
-                                            required
-                                            className="px-4 h-10 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                        >
-                                            <option className='opacity-50' value=""></option>
-                                            <option value="TTS Frontend">Năm 3</option>
-                                            <option value="TTS Backend">Năm 4</option>
-                                            <option value="TTS Fullstack">Năm cuối</option>
-                                            <option value="TTS Fullstack">Đã ra trường</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className='w-full mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>Kỹ năng</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <textarea
-                                            name="skill"
-                                            value={formData.skill}
-                                            onChange={handleChange}
-                                            required
-                                            className="px-4 h-12 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                        />
-                                    </div>
-                                </div>
-                                <div className='w-full mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>Project</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <textarea
-                                            name="project"
-                                            placeholder=""
-                                            value={formData.project}
-                                            onChange={handleChange}
-                                            required
-                                            className="px-4 h-12 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                        />
-                                    </div>
-                                </div>
-                                <div className='w-full mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>Email</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            required
-                                            className="px-4 h-10 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                        />
-                                    </div>
-                                </div>
-                                <div className='w-full mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>Số điện thoại</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <input
-                                            type="tel"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleChange}
-                                            required
-                                            className="px-4 h-10 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                        />
-                                    </div>
-                                </div>
-                                <div className='w-ful mb-4'>
-                                    <div className='flex'>
-                                        <label className='mb-2'>message</label>
-                                        <span className='text-red-600 ml-1'>*</span>
-                                    </div>
-                                    <div className='w-full'>
-                                        <textarea
-                                            name="message"
-                                            value={formData.message}
-                                            onChange={handleChange}
-                                            required
-                                            className="px-4 h-12 border border-solid border-gray-300 rounded-[4px] outline-none w-full"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button
-                            type="submit"
-                            className="flex justify-center items-center w-full bg-blue-500 text-white p-2 hover:bg-blue-600 transition-all rounded cursor-pointer mt-4 leading-10 h-10"
-                        >
-                            Gửi hồ sơ
-=======
             {/* Overlay để click ra ngoài đóng form */}
             <div
                 id='bgForm'
@@ -718,7 +451,6 @@ export default function recruitment() {
                             className="w-full bg-[#00b14f] text-white font-bold py-2 rounded hover:bg-[#009944] transition"
                         >
                             Nộp hồ sơ ứng tuyển
->>>>>>> 255b29b (Initial commit: Add existing project files)
                         </button>
                     </form>
                 </section>

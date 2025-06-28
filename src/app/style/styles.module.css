@@ -105,10 +105,6 @@ ul.afHover li:after {
     bottom: -1px !important;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 255b29b (Initial commit: Add existing project files)
 .hdMenu .container ul li:after {
     content: "";
     display: block;
@@ -662,29 +658,10 @@ main .whyBox .firstLine .content {
     z-index: 1;
 }
 
-<<<<<<< HEAD
-.swiper {
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    list-style: none;
-    padding: 0;
-    z-index: 1;
-}
-
-=======
->>>>>>> 255b29b (Initial commit: Add existing project files)
 .swiperContainer .swiperWrapper {
     align-items: center;
 }
 
-<<<<<<< HEAD
-.swiper .swiperWrapper {
-    align-items: center;
-}
-
-=======
->>>>>>> 255b29b (Initial commit: Add existing project files)
 .swiperContainer img {
     width: 80%;
 }
@@ -1439,35 +1416,12 @@ main .whyBox .firstLine .content {
         margin-left: 10px;
     }
 
-<<<<<<< HEAD
-    .hdMenu {
-        position: relative;
-    }
-
-    .hdMenu .container ul li:after {
-        content: "";
-        display: none;
-        width: 0%;
-        height: 3px;
-        background: #FCB431;
-        position: absolute;
-        bottom: -30px;
-        left: 0px;
-        transition: 0.3s;
-    }
-
-=======
->>>>>>> 255b29b (Initial commit: Add existing project files)
     .menuMain {
         position: absolute;
         width: 100%;
         /* margin-left: 35%; */
         background: rgba(0, 93, 178, 1);
-<<<<<<< HEAD
-        top: 100%;
-=======
         top: 15vh;
->>>>>>> 255b29b (Initial commit: Add existing project files)
         left: 0%;
         display: none;
         z-index: 1000;
