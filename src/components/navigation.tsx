@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import Link from 'next/link';
 import React, { useState } from "react";
@@ -12,6 +13,15 @@ export default function Navigation() {
             [menu]: !prev[menu], // Chỉ thay đổi trạng thái menu được bấm
         }));
     }
+=======
+import Link from 'next/link';
+import React, { useState } from "react";
+import style from "@/app/style/styles.module.css";
+
+
+export default function Navigation() {
+
+>>>>>>> 255b29b (Initial commit: Add existing project files)
     const [menuVisible, setMenuVisible] = useState(false);
 
     const toggleMenu = () => {
@@ -32,7 +42,11 @@ export default function Navigation() {
                 </div>
                 <div className='flex-grow-[1]'></div>
                 <div
+<<<<<<< HEAD
                     className={`overflow-visible transition-all duration-500 ease-in-out ${style.menuMain} transition-all duration-500 ease-in-out`}
+=======
+                    className={`overflow-visible transition-all duration-500 ease-in-out ${style.menuMain} ${menuVisible ? "!block" : ""} transition-all duration-500 ease-in-out`}
+>>>>>>> 255b29b (Initial commit: Add existing project files)
                 >
                     <ul className={`${style.afHover}`}>
                         <li className='pb-7 pt-7 cursor-pointer'>
@@ -147,7 +161,11 @@ export default function Navigation() {
                             </Link>
                             <ul className={`${style.subMenu} z-[99999]`}>
                                 <li>
+<<<<<<< HEAD
                                     <Link className='text-white !text-left' href={'https://hitech-xtp.vercel.app/'}> Hitech </Link>
+=======
+                                    <Link className='text-white !text-left' href={'#'}> Hitech </Link>
+>>>>>>> 255b29b (Initial commit: Add existing project files)
                                 </li>
                                 <li>
                                     <Link
@@ -161,8 +179,12 @@ export default function Navigation() {
                                     <Link
                                         target="_blank"
                                         rel="noopener noreferrer"
+<<<<<<< HEAD
                                         className='text-white !text-left' href={'https://www.nganluc.vn/'}>
                                         Niad
+=======
+                                        className='text-white !text-left' href={'https://www.edreams.com/offers/flights/airline/VN/vietnam-airlines/?mktportal=bing&utm_id=bi_cmp-614041404_adg-1164384646735721_ad-72774248682417_kwd-72774729965455_dev-c_ext-_locphy-142921_mtype-e_ntw-o&utm_term=72774729965455&utm_content=1164384646735721&msclkid=76311a57fe331812ec6b7df8ca14984a&utm_source=bing&utm_medium=cpc&utm_campaign=B-E-GB-FL-AIRLINE-SEA-PC-R'}>Đặt vé máy bay vé máy bay vietnam airline
+>>>>>>> 255b29b (Initial commit: Add existing project files)
                                     </Link>
                                 </li>
                                 <li>
@@ -192,11 +214,16 @@ export default function Navigation() {
                         </li>
                     </ul>
                 </div>
+<<<<<<< HEAD
                 <button
+=======
+                <div
+>>>>>>> 255b29b (Initial commit: Add existing project files)
                     className={`${style.togglerMenu} !hidden`}
                     onClick={toggleMenu}
                 >
                     Menu
+<<<<<<< HEAD
                 </button>
                 {/* mobile */}
                 <div
@@ -528,6 +555,10 @@ export default function Navigation() {
                     </ul >
                 </div >
             </div >
+=======
+                </div>
+            </div>
+>>>>>>> 255b29b (Initial commit: Add existing project files)
         </nav >
     )
 }

@@ -1,5 +1,9 @@
 'use client';
+<<<<<<< HEAD
 import React, { useEffect, useRef } from 'react'
+=======
+import React, { useEffect, useRef, useState } from 'react'
+>>>>>>> 255b29b (Initial commit: Add existing project files)
 import Image from "next/image";
 import style from "@/app/style/styles.module.css";
 import Link from 'next/link';
@@ -32,6 +36,11 @@ export default function Blog() {
         }
     ]
 
+<<<<<<< HEAD
+=======
+    const [posts, setPosts] = useState<any[]>([]);
+
+>>>>>>> 255b29b (Initial commit: Add existing project files)
     const getActiveTab = () => {
         return localStorage.getItem("selectedTab") || "promotion";
     };
@@ -58,6 +67,14 @@ export default function Blog() {
         const defaultTab = getActiveTab();
         document.querySelector(`li[data-tab="${defaultTab}"]`)?.classList.add(style.active);
         onTabClick(defaultTab);
+<<<<<<< HEAD
+=======
+
+        // Lấy danh sách bài viết cho blog-technology
+        fetch('http://localhost:8080/posts')
+            .then(res => res.json())
+            .then(data => setPosts(data));
+>>>>>>> 255b29b (Initial commit: Add existing project files)
     }, []);
     return (
         <section className={`${style.blog}`}>
@@ -192,6 +209,7 @@ export default function Blog() {
                         </div>
                     </div>
                     <div id='blog-technology' className={`${style.proContent} mt-9 hidden`} style={{ display: "none" }} >
+<<<<<<< HEAD
                         <div className={`${style.item}`}>
                             <article>
                                 <div className={`${style.img}`}>
@@ -249,9 +267,57 @@ export default function Blog() {
                                 </div>
                             </article>
                         </div>
+=======
+                        {posts.length === 0 ? (
+                            <div>Đang tải...</div>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {posts.map((post: any) => (
+                                    <div className={`${style.item} flex flex-col items-center`} key={post.id}>
+                                        <Link href={`/news/${post.id}`} className="block w-full">
+                                            <div className="w-96 aspect-[16/9] bg-gray-100 rounded overflow-hidden relative">
+                                                <Image
+                                                    src={post.image || "/blog/default.jpg"}
+                                                    alt={stripHtml(post.title)}
+                                                    fill
+                                                    className="object-cover rounded"
+                                                />
+                                            </div>
+                                    
+                                        </Link>
+                                        <div className="w-96 mt-3 flex flex-col items-center ml-20">
+                                            <Link href={`/news/${post.id}`} className="w-full">
+                                                <h4 className="font-semibold ml-16 text-lg mb-2 leading-snug text-blue-800 text-center break-words whitespace-normal w-full max-w-[320px] line-clamp-2 overflow-hidden text-ellipsis">
+                                                    {stripHtml(post.title)}
+                                                </h4>
+                                            </Link>
+                                            <p className="text-gray-700 line-clamp-3 overflow-hidden text-ellipsis ml-16">{stripHtml(post.content)}</p>
+                                            <p className="text-gray-500 text-sm text-center mb-2 mr-44">
+                                                {post.created_at ? new Date(post.created_at).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : ''}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+>>>>>>> 255b29b (Initial commit: Add existing project files)
                     </div>
                 </div>
             </div >
         </section >
     )
 }
+<<<<<<< HEAD
+=======
+
+// Hàm loại bỏ thẻ HTML khỏi chuỗi
+function stripHtml(html: string) {
+    if (!html) return '';
+    if (typeof window !== 'undefined') {
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        return div.textContent || div.innerText || '';
+    }
+    return html.replace(/<[^>]+>/g, '');
+}
+>>>>>>> 255b29b (Initial commit: Add existing project files)

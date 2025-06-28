@@ -9,14 +9,36 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@emailjs/browser": "^4.4.1",
     "@vercel/speed-insights": "^1.1.0",
     "clsx": "^2.1.1",
+=======
+      "@ckeditor/ckeditor5-adapter-ckfinder": "^45.2.1",
+    "@ckeditor/ckeditor5-alignment": "^45.2.1",
+    "@ckeditor/ckeditor5-build-classic": "^41.4.2",
+    "@ckeditor/ckeditor5-build-decoupled-document": "^41.4.2",
+    "@ckeditor/ckeditor5-font": "^45.2.1",
+    "@ckeditor/ckeditor5-image": "^45.2.1",
+    "@ckeditor/ckeditor5-react": "^9.5.0",
+    "@ckeditor/ckeditor5-upload": "^45.2.1",
+    "@emailjs/browser": "^4.4.1",
+    "@vercel/speed-insights": "^1.1.0",
+    "axios": "^1.10.0",
+    "clsx": "^2.1.1",
+    "formidable": "^3.5.4",
+    "gapi-script": "^1.2.0",
+>>>>>>> 255b29b (Initial commit: Add existing project files)
     "next": "^15.1.4",
     "nodemailer": "^6.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+<<<<<<< HEAD
+=======
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
+>>>>>>> 255b29b (Initial commit: Add existing project files)
     "svg-captcha": "^1.4.0",
     "yarn": "^1.22.22"
   },
