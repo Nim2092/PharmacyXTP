@@ -1,14 +1,9 @@
 'use client';
-<<<<<<< HEAD
 import React, {useEffect, useRef, useState} from 'react';
-=======
-import React from 'react';
->>>>>>> 255b29b (Initial commit: Add existing project files)
 import style from "@/app/style/styles.module.css";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/Footer";
 import Link from 'next/link';
-<<<<<<< HEAD
 import {usePathname} from "next/navigation";
 import Image from 'next/image';
 
