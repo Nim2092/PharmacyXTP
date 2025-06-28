@@ -30,8 +30,6 @@ export default function product() {
                 <div className='flex justify-end h-full max-w-[1170px] w-full m-auto'>
                     <ul className='p-0 m-0 h-full list-none flex items-center'>
                         <li className='cursor-pointer h-full items-center py-2 relative mr-4'>
-<<<<<<< HEAD
-=======
                             <Link href={'#'} className='whitespace-nowrap font-sans text-lg text-left flex items-center' id='login' style={{ fontFamily: 'inherit', lineHeight: '1.29', letterSpacing: 'normal', fontWeight: 'normal', fontStretch: 'normal', color: '#ffffff', textDecoration: 'none', }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 mr-2">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -39,7 +37,6 @@ export default function product() {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </Link>
->>>>>>> 255b29b (Initial commit: Add existing project files)
                         </li>
                     </ul>
                 </div>
@@ -99,11 +96,7 @@ export default function product() {
                                                 ✖
                                             </button>
                                             <div className="aspect-w-16 aspect-h-9">
-<<<<<<< HEAD
-                                                <iframe width="560" height="315" className='w-full' src="https://www.youtube.com/embed/h6q3zIWmBGM?si=XFbtxTMCvSOvLD0U" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-=======
                                                 <iframe width="560" height="315" className='w-full' src="https://www.youtube.com/embed/Ec77hS0xhAY?si=6_eT0h16MCIbq6mL" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
->>>>>>> 255b29b (Initial commit: Add existing project files)
                                             </div>
                                         </div>
                                     </div>

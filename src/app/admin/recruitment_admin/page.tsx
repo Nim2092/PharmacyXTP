@@ -90,7 +90,13 @@ export default function AdminRecruitmentPage() {
         recruitments: loaded.recruitments || [],
         studentContent: typeof loaded.studentContent === 'string' ? loaded.studentContent : '',
       });
-      setStudentProject2Previews(Array.isArray(loaded.studentProject2) ? loaded.studentProject2 : loaded.studentProject2 ? [loaded.studentProject2] : []);
+      setStudentProject2Previews(
+        Array.isArray(loaded.studentProject2) 
+          ? loaded.studentProject2.map((img: any) => img.src || null)
+          : loaded.studentProject2 && typeof loaded.studentProject2 === 'object' && 'src' in loaded.studentProject2
+            ? [(loaded.studentProject2 as any).src || null] 
+            : []
+      );
       setStudentProject2Files([]);
     });
   }, []);
@@ -474,6 +480,15 @@ export default function AdminRecruitmentPage() {
     }));
     setStudentProject2Files(prev => prev.filter((_, i) => i !== idx));
     setStudentProject2Previews(prev => prev.filter((_, i) => i !== idx));
+  };
+
+  // Sửa ảnh thực hành dự án 2
+  const handleStudentProject2Change = (idx: number, field: string, value: string) => {
+    setData(prev => {
+      const studentProject2 = [...prev.studentProject2];
+      studentProject2[idx] = { ...studentProject2[idx], [field]: value };
+      return { ...prev, studentProject2 };
+    });
   };
 
   if (!data) return <div>Đang tải...</div>;
