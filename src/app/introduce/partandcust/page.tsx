@@ -39,23 +39,6 @@ export default function page() {
     return (
         <main
             className={`${style.mainIndex} w-[70%] bg-white ml-[15%] mr-[15%] relative top-[20vh] flex flex-col shadow-md`}>
-=======
-import { usePathname } from "next/navigation";
-import Image from 'next/image';
-
-export default function page() {
-    const partners = [
-        { src: "/partners/Logo-hanh-chinh-cong.jpg", alt: "bidv", },
-        { src: "/partners/bo-y-te.png", alt: "bic", },
-        { src: "/partners/logo-giao-duc-2.jpg", alt: "niad", },
-        { src: "/partners/bidv-logo.png", alt: "bidv", },
-        { src: "/partners/niad-logo-2.jpg", alt: "bic", },
-        { src: "/partners/virtnam-post-logo.png", alt: "niad", },
-    ]
-    const pathname = usePathname();
-    return (
-        <main className={`${style.mainIndex} w-[70%] bg-white ml-[15%] mr-[15%] relative top-[20vh] flex flex-col shadow-md`}>
->>>>>>> 255b29b (Initial commit: Add existing project files)
             <div className='w-full h-10 bg-[#005db2] flex items-center'>
                 <div className='flex justify-end h-full max-w-[1170px] w-full m-auto'>
                     <ul className='p-0 m-0 h-full list-none flex items-center'>
@@ -71,7 +54,6 @@ export default function page() {
                     </ul>
                 </div>
             </div>
-<<<<<<< HEAD
             
             <Navigation/>
             
@@ -84,14 +66,6 @@ export default function page() {
                                     <div className="flex-[6] bg-[#f8b133]"></div>
                                     <div className="flex-[4] bg-[#e91e1e]"></div>
                                 </div> */}
-=======
-            <Navigation />
-            <section className={`${style.mainIntro} py-[3.125rem]`}>
-                <div className={`${style.container}`}>
-                    <div className={`${style.leftIntro}`}>
-                        <div className={`${style.textIntro} bg-[#005db2]`}>
-                            <div className={`${style.title}`}>
->>>>>>> 255b29b (Initial commit: Add existing project files)
                                 <h2 className="mt-2 text-white text-[48px]" style={{ fontFamily: "'Poppins', sans-serif" }}>
                                     Giới Thiệu
                                 </h2>
@@ -114,7 +88,6 @@ export default function page() {
                             </ul>
                         </div>
                     </div>
-<<<<<<< HEAD
                     
                     {/* Right Content */}
                     <div className={`${style.rightIntro}`}>
@@ -239,37 +212,12 @@ export default function page() {
                                         ))}
                                     </div>
                                 </div>
-=======
-                    <div className={`${style.rightIntro}`}>
-                        <div className={`${style.breadcrumb}`}>
-                            <p>
-                                <span>Trang chủ</span> / <span>Giới thiệu</span> / <span>Đối tác và Khách hàng</span>
-                            </p>
-                        </div>
-                        <div className={`${style.customIntro}`}>
-                            <div className={`${style.grid}`}>
-                                {partners.map((partner, index) => (
-                                    <div key={index} className={`${style.logoItem}`}>
-                                        <Image
-                                            src={partner.src}
-                                            alt={partner.alt}
-                                            width={120}
-                                            height={50}
-                                            objectFit="contain"
-                                        />
-                                    </div>
-                                ))}
->>>>>>> 255b29b (Initial commit: Add existing project files)
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-<<<<<<< HEAD
             <Footer/>
-=======
-            <Footer />
->>>>>>> 255b29b (Initial commit: Add existing project files)
         </main>
     )
 }

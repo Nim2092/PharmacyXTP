@@ -1,9 +1,5 @@
 'use client';
-<<<<<<< HEAD
-import React, { useEffect, useRef } from 'react'
-=======
 import React, { useEffect, useRef, useState } from 'react'
->>>>>>> 255b29b (Initial commit: Add existing project files)
 import Image from "next/image";
 import style from "@/app/style/styles.module.css";
 import Link from 'next/link';
@@ -36,11 +32,8 @@ export default function Blog() {
         }
     ]
 
-<<<<<<< HEAD
-=======
     const [posts, setPosts] = useState<any[]>([]);
 
->>>>>>> 255b29b (Initial commit: Add existing project files)
     const getActiveTab = () => {
         return localStorage.getItem("selectedTab") || "promotion";
     };
@@ -67,14 +60,11 @@ export default function Blog() {
         const defaultTab = getActiveTab();
         document.querySelector(`li[data-tab="${defaultTab}"]`)?.classList.add(style.active);
         onTabClick(defaultTab);
-<<<<<<< HEAD
-=======
 
         // Lấy danh sách bài viết cho blog-technology
         fetch('http://localhost:8080/posts')
             .then(res => res.json())
             .then(data => setPosts(data));
->>>>>>> 255b29b (Initial commit: Add existing project files)
     }, []);
     return (
         <section className={`${style.blog}`}>
@@ -209,65 +199,6 @@ export default function Blog() {
                         </div>
                     </div>
                     <div id='blog-technology' className={`${style.proContent} mt-9 hidden`} style={{ display: "none" }} >
-<<<<<<< HEAD
-                        <div className={`${style.item}`}>
-                            <article>
-                                <div className={`${style.img}`}>
-                                    <Link href={'#'}>
-                                        <Image width={500} height={200} src="/sale/technology-blog-26122014.png" alt="technology" />
-                                    </Link>
-                                </div>
-                                <div className={`${style.content}`}>
-                                    <h4> Chọn thuê VPS hay Shared hosting để lưu trữ? </h4>
-                                    <div className={`${style.meta}`}>
-                                    </div>
-                                    <div className={`${style.summary}`}>
-                                        <p className='leading-[26px] text-justify overflow-hidden'>Thuê VPS giá rẻ hay chọn Shared hosting để trở thành giải pháp tốt nhất cho doanh nghiệp trong việc tối ưu lưu trữ Web?.....</p>
-                                    </div>
-                                    <Link className={`${style.view}`} href={'#'}>
-                                        Xem thêm
-                                        <Image className='ml-[10px]' width={25} height={25} src="/icon/iconLeft.png" alt="" />
-                                    </Link>
-                                </div>
-                            </article>
-                        </div>
-                        <div className={`${style.item}`}>
-                            <article>
-                                <div className={`${style.img}`}>
-                                    <Link className='flex' href={'#'}>
-                                        <Image className='w-[480px]' width={380} height={380} src="/Sale/blog-sale-bidv-niad-26122024.png" alt="blog" />
-                                    </Link>
-                                </div>
-                                <div className={`${style.content}`}>
-                                    <h5> Nghe nhạc cực đã với các gói dât của mobifone </h5>
-                                    <div className={`${style.summary}`}>
-                                        <p className='leading-[26px] text-justify overflow-hidden'>Spotity data đang là gói cước thu hút sự quan tâm của nhiều khách hàng trẻ. Phục vụ nhu cầu nghe nhạc trên nền tảng..</p>
-                                    </div>
-                                    <Link className={`${style.view}`} href={'#'}>
-                                        Xem thêm
-                                        <Image className='ml-[10px]' width={25} height={25} src="/icon/iconLeft.png" alt="" />
-                                    </Link>
-                                </div>
-                            </article>
-                            <article>
-                                <div className={`${style.img}`}>
-                                    <Link className='flex' href={'#'}>
-                                        <Image className='w-[480px]' width={380} height={380} src="/Sale/blog-sale-bidv-niad-26122024.png" alt="blog" />
-                                    </Link>
-                                </div>
-                                <div className={`${style.content}`}>
-                                    <h5> Nghe nhạc cực đã với các gói dât của mobifone </h5>
-                                    <div className={`${style.summary}`}>
-                                        <p className='leading-[26px] text-justify overflow-hidden'>Spotity data đang là gói cước thu hút sự quan tâm của nhiều khách hàng trẻ. Phục vụ nhu cầu nghe nhạc trên nền tảng..</p>
-                                    </div>
-                                    <Link className={`${style.view}`} href={'#'}>
-                                        Xem thêm
-                                        <Image className='ml-[10px]' width={25} height={25} src="/icon/iconLeft.png" alt="" />
-                                    </Link>
-                                </div>
-                            </article>
-                        </div>
-=======
                         {posts.length === 0 ? (
                             <div>Đang tải...</div>
                         ) : (
@@ -300,15 +231,12 @@ export default function Blog() {
                                 ))}
                             </div>
                         )}
->>>>>>> 255b29b (Initial commit: Add existing project files)
                     </div>
                 </div>
             </div >
         </section >
     )
 }
-<<<<<<< HEAD
-=======
 
 // Hàm loại bỏ thẻ HTML khỏi chuỗi
 function stripHtml(html: string) {
@@ -320,4 +248,3 @@ function stripHtml(html: string) {
     }
     return html.replace(/<[^>]+>/g, '');
 }
->>>>>>> 255b29b (Initial commit: Add existing project files)
