@@ -3,6 +3,7 @@ import React from 'react';
 import Template1 from './Template1';
 import Template2 from './Template2';
 import Template3 from './Template3';
+import Template4 from './Template4';
 
 interface NewsTemplateRendererProps {
   post: {
@@ -28,13 +29,15 @@ export default function NewsTemplateRenderer({ post }: NewsTemplateRendererProps
       return <Template2 post={post} />;
     case 'template3':
       return <Template3 post={post} />;
+    case 'template4':
+      return <Template4 post={post} />;
     default:
       return <Template1 post={post} />; // Fallback
   }
 }
 
 // Export types để sử dụng ở nơi khác
-export type TemplateType = 'template1' | 'template2' | 'template3';
+export type TemplateType = 'template1' | 'template2' | 'template3' | 'template4';
 
 export const TEMPLATE_OPTIONS = [
   {
@@ -54,5 +57,11 @@ export const TEMPLATE_OPTIONS = [
     label: 'Corporate Professional',
     description: 'Chuyên nghiệp, phù hợp với doanh nghiệp',
     preview: '🏢 Corporate Style'
+  },
+  {
+    value: 'template4',
+    label: 'Image-Text Layout',
+    description: 'Layout hình ảnh bên trái, nội dung bên phải - Responsive',
+    preview: '🖼️ Image-Text Layout'
   }
 ];

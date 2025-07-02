@@ -245,21 +245,22 @@ export default function recruitment() {
             )}
 
             {/* --- PHẦN GIỚI THIỆU HITECH --- */}
-            <section className="w-full flex flex-col items-center mt-8">
-                <h1 className="text-[64px] font-bold text-[#1553ad] text-center leading-tight bg-[#b3d2f1] px-8 py-2 rounded-md mb-6 w-fit mx-auto">
+            <section className="w-full flex flex-col items-center mt-8 px-4">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-[64px] font-bold text-[#1553ad] text-center leading-tight bg-[#b3d2f1] px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-md mb-6 w-fit mx-auto max-w-[95%]">
                     {recruitmentData?.mainTitle || ''}
                 </h1>
                 <hr className="w-[96%] h-[6px] bg-gray-100 border-0 my-6" />
-                <div className="flex flex-row w-full justify-center items-start gap-8 mt-4">
+                <div className="flex flex-col lg:flex-row w-full justify-center items-center lg:items-start gap-6 lg:gap-8 mt-4 px-4">
                     {recruitmentData?.intro?.logo && (
-                        <img
-                            src={recruitmentData.intro.logo}
-                            alt="Hitech Vietnam"
-                            className="w-[350px] h-auto object-contain"
-                            style={{ minWidth: 220 }}
-                        />
+                        <div className="flex justify-center lg:justify-start flex-shrink-0">
+                            <img
+                                src={recruitmentData.intro.logo}
+                                alt="Hitech Vietnam"
+                                className="w-[280px] sm:w-[320px] lg:w-[350px] h-auto object-contain"
+                            />
+                        </div>
                     )}
-                    <div className="max-w-[900px] text-[28px] leading-[1.4] text-black text-justify">
+                    <div className="w-full lg:max-w-[900px] text-base sm:text-lg md:text-xl lg:text-[28px] leading-[1.6] lg:leading-[1.4] text-black text-center lg:text-justify">
                         {recruitmentData?.intro?.text || ''}
                     </div>
                 </div>
@@ -267,28 +268,81 @@ export default function recruitment() {
 
             {/* Hexagon Images động */}
             <section
-                className="flex flex-wrap justify-center items-center gap-y-0"
+                className="w-full px-4 py-16"
                 style={{ marginTop: 100 }}
             >
-                {recruitmentData?.hexagonImages?.map((img: any, idx: number) => (
-                    <HexagonImage key={idx} src={img.src} alt={img.alt} className={idx % 2 === 0 ? "mt-12" : ""} />
-                ))}
+                <div className="max-w-7xl mx-auto">
+                    {/* Desktop Layout (≥1332px) */}
+                    <div className="hidden xl:flex flex-wrap justify-center items-center gap-y-0" style={{ minWidth: '1332px' }}>
+                        {recruitmentData?.hexagonImages?.map((img: any, idx: number) => (
+                            <HexagonImage key={idx} src={img.src} alt={img.alt} className={idx % 2 === 0 ? "mt-12" : ""} />
+                        ))}
+                    </div>
+                    
+                    {/* Tablet Layout (768px - 1331px) */}
+                    <div className="hidden md:grid xl:hidden grid-cols-3 gap-6 justify-items-center">
+                        {recruitmentData?.hexagonImages?.map((img: any, idx: number) => (
+                            <div key={idx} className="relative">
+                                <HexagonImage 
+                                    src={img.src} 
+                                    alt={img.alt} 
+                                    style={{ 
+                                        width: '200px',
+                                        margin: '0'
+                                    }} 
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    
+                    {/* Mobile Layout (≤767px) */}
+                    <div className="grid md:hidden grid-cols-2 gap-4 justify-items-center">
+                        {recruitmentData?.hexagonImages?.map((img: any, idx: number) => (
+                            <div key={idx} className="relative">
+                                <HexagonImage 
+                                    src={img.src} 
+                                    alt={img.alt} 
+                                    style={{ 
+                                        width: '140px',
+                                        margin: '0'
+                                    }} 
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
 
             {/* --- MỤC TIÊU CỦA CHÚNG TÔI --- */}
-            <section className="w-full flex flex-col items-center mt-16 mb-8">
-                <div className="flex items-center justify-center mb-8">
-                    <h2 className="text-[64px] font-bold text-[#1553ad] text-center leading-tight uppercase mr-4">
+            <section className="w-full flex flex-col items-center mt-16 mb-8 px-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center mb-8 gap-4">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[64px] font-bold text-[#1553ad] text-center leading-tight uppercase">
                         {recruitmentData?.goalsTitle || 'Mục tiêu của chúng tôi'}
                     </h2>
-                    {recruitmentData?.goalsIcon && <img src={recruitmentData.goalsIcon} alt="Chart" className="w-20 h-20 object-contain" />}
+                    {recruitmentData?.goalsIcon && (
+                        <img 
+                            src={recruitmentData.goalsIcon} 
+                            alt="Chart" 
+                            className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain flex-shrink-0" 
+                        />
+                    )}
                 </div>
-                <div className="w-[98%] bg-[#f7f7f7] rounded-lg flex flex-row justify-center items-stretch gap-8 py-10 px-4">
+                <div className="w-full max-w-7xl bg-[#f7f7f7] rounded-lg flex flex-col sm:flex-row justify-center items-stretch gap-4 sm:gap-6 lg:gap-8 py-6 sm:py-8 lg:py-10 px-4 text-gray-900">
                     {recruitmentData?.goals?.map((goal: any, idx: number) => (
-                        <div key={idx} className="flex-1 flex flex-col items-center text-center px-4">
-                            {goal.icon && <img src={goal.icon} alt="" className="w-16 h-16 mb-2" />}
-                            <h3 className="text-2xl font-semibold mb-2">{goal.title}</h3>
-                            <p className="text-lg text-gray-800">{goal.desc}</p>
+                        <div key={idx} className="flex-1 flex flex-col items-center text-center px-2 sm:px-4 py-4 sm:py-0">
+                            {goal.icon && (
+                                <img 
+                                    src={goal.icon} 
+                                    alt="" 
+                                    className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 mb-3 sm:mb-2" 
+                                />
+                            )}
+                            <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-2 leading-tight">
+                                {goal.title}
+                            </h3>
+                            <p className="text-sm sm:text-base lg:text-lg text-gray-800 leading-relaxed">
+                                {goal.desc}
+                            </p>
                         </div>
                     ))}
                 </div>
@@ -296,21 +350,21 @@ export default function recruitment() {
 
 
             {/* --- HÌNH ẢNH SINH VIÊN THỰC HÀNH --- */}
-            <section className="w-full flex flex-col items-center mt-16 mb-8">
-                <h2 className="text-[40px] md:text-[48px] font-bold text-[#1553ad] text-center mb-2">
+            <section className="w-full flex flex-col items-center mt-16 mb-8 px-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[48px] font-bold text-[#1553ad] text-center mb-4 lg:mb-2">
                     {recruitmentData?.studentImagesTitle || 'Hình ảnh của sinh viên đang thực hành dự án'}
                 </h2>
-                <div className="w-full flex justify-center items-center relative" style={{ minHeight: 420 }}>
-                    {/* Nút chuyển trái */}
+                <div className="w-full flex justify-center items-center relative" style={{ minHeight: 'clamp(300px, 50vw, 420px)' }}>
+                    {/* Nút chuyển trái - Ẩn trên mobile */}
                     <button
-                        className="absolute left-0 top-1/2 -translate-y-1/2 bg-white rounded-full w-14 h-14 flex items-center justify-center shadow hover:bg-blue-100 z-20 transition"
+                        className="hidden sm:flex absolute left-2 sm:left-4 lg:left-0 top-1/2 -translate-y-1/2 bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 items-center justify-center shadow hover:bg-blue-100 z-20 transition"
                         style={{ border: "none" }}
                         onClick={() => sliderRef.current?.slickPrev()}
                     >
-                        <FaAngleLeft className="text-3xl text-[#1553ad]" />
+                        <FaAngleLeft className="text-xl sm:text-2xl lg:text-3xl text-[#1553ad]" />
                     </button>
 
-                    {/* Ảnh mờ trái */}
+                    {/* Ảnh mờ trái - Chỉ hiển thị trên desktop */}
                     {recruitmentData?.studentImages?.length > 1 && 
                      recruitmentData.studentImages[(currentSlide - 1 + recruitmentData.studentImages.length) % recruitmentData.studentImages.length]?.src && (
                         <img
@@ -318,14 +372,14 @@ export default function recruitment() {
                                 (currentSlide - 1 + recruitmentData.studentImages.length) % recruitmentData.studentImages.length
                             ].src}
                             alt=""
-                            className={`w-[280px] h-[190px] object-cover blur-sm mx-4 transition-all duration-700
+                            className={`hidden lg:block w-[200px] xl:w-[280px] h-[130px] xl:h-[190px] object-cover blur-sm mx-2 xl:mx-4 transition-all duration-700
                                 ${isSliding ? "opacity-0" : "opacity-30"}`}
                             style={{ zIndex: 5 }}
                         />
                     )}
 
                     {/* Ảnh chính */}
-                    <div className="flex flex-col items-center justify-center">
+                    <div className="flex flex-col items-center justify-center w-full max-w-[90vw] sm:max-w-[80vw] lg:max-w-[600px]">
                         <Slider
                             dots={false}
                             infinite={true}
@@ -336,7 +390,7 @@ export default function recruitment() {
                             autoplay={true}
                             autoplaySpeed={3000}
                             ref={sliderRef}
-                            className="w-[600px]"
+                            className="w-full"
                             beforeChange={(_, next) => {
                                 setIsSliding(true);
                                 setTimeout(() => setIsSliding(false), 700); // 700 = speed
@@ -349,18 +403,20 @@ export default function recruitment() {
                                         <img
                                             src={img.src}
                                             alt={img.alt}
-                                            className="w-[600px] h-[350px] object-cover shadow-lg mx-auto"
+                                            className="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] object-cover shadow-lg mx-auto rounded-lg"
                                         />
                                     )}
                                     {img.alt && (
-                                        <div className="mt-4 text-center text-lg text-gray-700">{img.alt}</div>
+                                        <div className="mt-3 lg:mt-4 text-center text-sm sm:text-base lg:text-lg text-gray-700 px-2">
+                                            {img.alt}
+                                        </div>
                                     )}
                                 </div>
                             ))}
                         </Slider>
                     </div>
 
-                    {/* Ảnh mờ phải */}
+                    {/* Ảnh mờ phải - Chỉ hiển thị trên desktop */}
                     {recruitmentData?.studentImages?.length > 1 && 
                      recruitmentData.studentImages[(currentSlide + 1) % recruitmentData.studentImages.length]?.src && (
                         <img
@@ -368,42 +424,56 @@ export default function recruitment() {
                                 (currentSlide + 1) % recruitmentData.studentImages.length
                             ].src}
                             alt=""
-                            className={`w-[280px] h-[190px] object-cover blur-sm mx-4 transition-all duration-700
+                            className={`hidden lg:block w-[200px] xl:w-[280px] h-[130px] xl:h-[190px] object-cover blur-sm mx-2 xl:mx-4 transition-all duration-700
                                 ${isSliding ? "opacity-0" : "opacity-30"}`}
                             style={{ zIndex: 5 }}
                         />
                     )}
 
-                    {/* Nút chuyển phải */}
+                    {/* Nút chuyển phải - Ẩn trên mobile */}
                     <button
-                        className="absolute right-0 top-1/2 -translate-y-1/2 bg-white rounded-full w-14 h-14 flex items-center justify-center shadow hover:bg-blue-100 z-20 transition"
+                        className="hidden sm:flex absolute right-2 sm:right-4 lg:right-0 top-1/2 -translate-y-1/2 bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 items-center justify-center shadow hover:bg-blue-100 z-20 transition"
                         style={{ border: "none" }}
                         onClick={() => sliderRef.current?.slickNext()}
                     >
-                        <FaAngleRight className="text-3xl text-[#1553ad]" />
+                        <FaAngleRight className="text-xl sm:text-2xl lg:text-3xl text-[#1553ad]" />
                     </button>
+                </div>
+
+                {/* Chấm điều hướng cho mobile */}
+                <div className="flex sm:hidden justify-center space-x-2 mt-4">
+                    {recruitmentData?.studentImages?.map((_: any, idx: number) => (
+                        <button
+                            key={idx}
+                            className={`w-2 h-2 rounded-full transition-all ${
+                                idx === currentSlide ? 'bg-[#1553ad] w-6' : 'bg-gray-300'
+                            }`}
+                            onClick={() => sliderRef.current?.slickGoTo(idx)}
+                        />
+                    ))}
                 </div>
             </section>
 
        {/* --- ẢNH SINH VIÊN THỰC HÀNH DỰ ÁN 2 + NỘI DUNG SINH VIÊN THỰC HÀNH (CKEditor) --- */}
             {(recruitmentData?.studentProject2?.length > 0 || recruitmentData?.studentContent) && (
-                <section className="w-full flex flex-col items-center mt-16 mb-8">
-                    <div className="flex flex-col md:flex-row w-full max-w-[1500px] mx-auto gap-8">
-                        {/* Ảnh bên trái động */}
-                        <div className="flex flex-col gap-6 flex-shrink-0 items-center md:items-start w-full md:w-[400px]">
+                <section className="w-full flex flex-col items-center mt-16 mb-8 px-4">
+                    <div className="flex flex-col lg:flex-row w-full max-w-7xl mx-auto gap-6 lg:gap-8">
+                        {/* Ảnh bên trái động - Chỉ hiển thị trên desktop */}
+                        <div className="hidden lg:flex flex-col gap-6 flex-shrink-0 items-start w-[400px]">
                             {recruitmentData?.studentProject2?.map((img: any, idx: number) => (
-                                <SquareImage
-                                    key={idx}
-                                    src={img.src}
-                                    alt={img.alt}
-                                    className={`w-[420px] h-[250px] rounded-xl object-cover shadow transition-all duration-300 mt-12 ${idx % 2 === 1 ? "ml-8" : ""}`}
-                                />
+                                <div key={idx} className={`relative ${idx % 2 === 1 ? "ml-8" : ""}`}>
+                                    <SquareImage
+                                        src={img.src}
+                                        alt={img.alt}
+                                        className="w-full max-w-[420px] h-[250px] rounded-xl object-cover shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
+                                    />
+                                </div>
                             ))}
                         </div>
                         {/* Nội dung bên phải: studentContent (CKEditor) */}
-                        <div className="flex-1 flex flex-col justify-start" >
+                        <div className="flex-1 flex flex-col justify-start mt-6 lg:mt-0">
                             {recruitmentData?.studentContent && (
-                                <div className="w-full text-[20px] leading-[1.7] text-black bg-[#f7f7f7] rounded-lg p-8 shadow" 
+                                <div className="w-full text-sm sm:text-base lg:text-lg xl:text-[20px] leading-[1.6] lg:leading-[1.7] text-black bg-[#f7f7f7] rounded-lg p-4 sm:p-6 lg:p-8 shadow-lg" 
                                     dangerouslySetInnerHTML={{ __html: recruitmentData.studentContent }} />
                             )}
                         </div>

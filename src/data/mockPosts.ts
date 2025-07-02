@@ -8,7 +8,7 @@ export interface Post {
   updated_at: string;
   author?: string;
   category?: string;
-  template?: 'template1' | 'template2' | 'template3';
+  template?: 'template1' | 'template2' | 'template3' | 'template4';
   status?: 'draft' | 'published' | 'archived';
   author_id?: number;
 }
@@ -17,6 +17,204 @@ export interface Post {
 export const mockPostsData: Post[] = [
   {
     id: 1,
+    title: "Giải pháp Kiosk Y tế thông minh - Cách mạng hóa dịch vụ y tế tự phục vụ",
+    content: `
+    <h2 style="color: #1e40af; text-align: center; font-size: 24px; margin-bottom: 20px;">GIẢI PHÁP KIOSK Y TẾ THÔNG MINH</h2>
+      <div style="display: flex; gap: 30px; margin: 20px 0; align-items: flex-start;">
+        <!-- Hình ảnh bên trái -->
+        <div style="flex: 0 0 400px;">
+          <img src="/home-slider-images04.jpg" alt="Kiosk Y tế thông minh" style="width: 100%; border-radius: 8px; border: 3px solid #2dd4bf; margin-bottom: 15px;" />
+          <img src="/home-slider-images05.jpg" alt="Kiosk Y tế màn hình" style="width: 100%; border-radius: 8px; border: 3px solid #2dd4bf; margin-bottom: 15px;" />
+          <img src="/home-slider-images01.jpg" alt="Kiosk Y tế tiếp nhận" style="width: 100%; border-radius: 8px; border: 3px solid #2dd4bf;" />
+        </div>
+
+        <!-- Nội dung bên phải -->
+        <div style="flex: 1;">
+          
+          <h3 style="color: #1e40af; font-size: 18px; margin-bottom: 15px;">Tính năng nổi bật của Giải pháp Kiosk Y tế</h3>
+          <ul style="margin-bottom: 25px;">
+            <li style="margin-bottom: 8px;"><strong>Giải pháp Kiosk - Phần mềm Y tế thông minh hỗ trợ bệnh viện đón tiếp bệnh nhân, nhằm đưa những tiện ích vào để án 06/CP triển khai chuyển đổi số Quốc Gia, thanh toán không tiền mặt cho các cơ sở Y tế</strong></li>
+            <li style="margin-bottom: 8px;"><strong>Đăng ký khám chữa bệnh bằng thẻ CCCD gắn chip/tài khoản VNeID bước 2.</strong></li>
+            <li style="margin-bottom: 8px;"><strong>Liên thông hồ sơ sức khỏe điện tử và BHYT/VNeID</strong></li>
+            <li style="margin-bottom: 8px;"><strong>Xác thực camera nhận diện khuôn mặt theo chuẩn đề án 06/CP để eKYC khi bệnh nhân tái khám</strong></li>
+            <li style="margin-bottom: 8px;"><strong>Thanh toán, tra cứu viện phí online.</strong></li>
+            <li style="margin-bottom: 8px;"><strong>Đăng ký khám chữa bệnh Offline-Online 24/7</strong></li>
+          </ul>
+
+          <h3 style="color: #1e40af; font-size: 18px; margin-bottom: 15px;">Lợi ích cho bệnh viện và bệnh nhân</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+              <h4 style="color: #059669; margin-bottom: 10px;">Cho Bệnh viện:</h4>
+              <ul>
+                <li>Giảm tải công việc cho nhân viên tiếp nhận</li>
+                <li>Tăng hiệu quả quản lý hồ sơ bệnh nhân</li>
+                <li>Giảm thời gian chờ đợi của bệnh nhân</li>
+                <li>Tích hợp với hệ thống HIS-LIS hiện có</li>
+                <li>Báo cáo và thống kê real-time</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="color: #059669; margin-bottom: 10px;">Cho Bệnh nhân:</h4>
+              <ul>
+                <li>Đăng ký khám nhanh chóng, tiện lợi</li>
+                <li>Thanh toán không dùng tiền mặt</li>
+                <li>Theo dõi lịch hẹn và kết quả khám</li>
+                <li>Bảo mật thông tin cá nhân cao</li>
+                <li>Trải nghiệm hiện đại, thân thiện</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 style="color: #1e40af; font-size: 18px; margin-bottom: 15px;">Công nghệ tiên tiến</h3>
+          <p style="margin-bottom: 10px;">Hệ thống Kiosk Y tế của Hitech sử dụng các công nghệ hàng đầu:</p>
+          <ul style="margin-bottom: 20px;">
+            <li><strong>AI Face Recognition:</strong> Nhận diện khuôn mặt chính xác theo chuẩn 06/CP</li>
+            <li><strong>NFC/RFID:</strong> Đọc thẻ CCCD gắn chip và thẻ BHYT</li>
+            <li><strong>QR Code:</strong> Tích hợp với VNeID và ví điện tử</li>
+            <li><strong>Cloud Integration:</strong> Đồng bộ dữ liệu trên nền tảng đám mây</li>
+            <li><strong>Multi-language:</strong> Hỗ trợ đa ngôn ngữ cho bệnh nhân quốc tế</li>
+          </ul>
+
+          <blockquote style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 15px; margin: 20px 0; font-style: italic;">
+            <p>"Kiosk Y tế thông minh không chỉ giúp bệnh viện hiện đại hóa quy trình tiếp nhận mà còn nâng cao trải nghiệm khám chữa bệnh cho người dân trong kỷ nguyên số."</p>
+            <cite style="font-weight: bold; color: #0ea5e9;">- Ông Nguyễn Văn Minh, Giám đốc Sản phẩm Hitech</cite>
+          </blockquote>
+        </div>
+      </div>
+    `,
+    image: "/home-slider-images02.jpg",
+    created_at: "2025-07-01T08:00:00Z",
+    updated_at: "2025-07-01T08:00:00Z",
+    author: "Nguyễn Văn Minh",
+    category: "Y tế số",
+    template: "template1",
+    status: "published",
+    author_id: 1
+  },
+  {
+    id: 2,
+    title: "Kiosk Hành chính công thông minh - Số hóa dịch vụ công cho người dân",
+    content: `
+    <h2 style="color: #1e40af; text-align: center; font-size: 24px; margin-bottom: 20px;">GIẢI PHÁP KIOSK HÀNH CHÍNH CÔNG THÔNG MINH</h2>
+      <div style="display: flex; gap: 30px; margin: 20px 0; align-items: flex-start;">
+        <!-- Hình ảnh bên trái -->
+        <div style="flex: 0 0 400px;">
+          <img src="/home-slider-images03.jpg" alt="Kiosk Hành chính công" style="width: 100%; border-radius: 8px; border: 3px solid #2dd4bf; margin-bottom: 15px;" />
+          <img src="/home-slider-images08.jpg" alt="Kiosk văn phòng" style="width: 100%; border-radius: 8px; border: 3px solid #2dd4bf; margin-bottom: 15px;" />
+          <img src="/home-slider-images06.jpg" alt="Kiosk dịch vụ công" style="width: 100%; border-radius: 8px; border: 3px solid #2dd4bf;" />
+        </div>
+
+        <!-- Nội dung bên phải -->
+        <div style="flex: 1;">
+          
+          <h3 style="color: #1e40af; font-size: 18px; margin-bottom: 15px;">Giải pháp Kiosk Hành chính công toàn diện</h3>
+          <ul style="margin-bottom: 25px;">
+            <li style="margin-bottom: 8px;"><strong>Giải pháp Kiosk - Phần mềm phục vụ Hành chính công thông minh hỗ trợ dịch vụ công dân tiếp Công dân, nhằm đưa những tiện ích vào để án 06/CP triển khai chuyển đổi số Quốc gia.</strong></li>
+            <li style="margin-bottom: 8px;"><strong>Đăng ký dịch vụ công bằng thẻ CCCD gắn chip/tài khoản VNeID bước 2.</strong></li>
+            <li style="margin-bottom: 8px;"><strong>Liên thông phần mềm số hóa dữ liệu các sở ban ngành theo chuẩn Đề án 06/CP.</strong></li>
+            <li style="margin-bottom: 8px;"><strong>Đăng ký làm các thủ tục hành chính công Offline-Online 24/7</strong></li>
+          </ul>
+
+          <h3 style="color: #1e40af; font-size: 18px; margin-bottom: 15px;">Các dịch vụ công được hỗ trợ</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div>
+              <h4 style="color: #059669; margin-bottom: 10px;">Dịch vụ UBND/Phường/Xã:</h4>
+              <ul>
+                <li>Cấp giấy chứng nhận tạm trú, thường trú</li>
+                <li>Đăng ký kết hôn, ly hôn</li>
+                <li>Cấp giấy khai sinh, khai tử</li>
+                <li>Xác nhận hộ khẩu, công dân</li>
+                <li>Các dịch vụ xã hội khác</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="color: #059669; margin-bottom: 10px;">Dịch vụ Sở/Ban/Ngành:</h4>
+              <ul>
+                <li>Cấp phép kinh doanh</li>
+                <li>Đăng ký thuế, bảo hiểm</li>
+                <li>Cấp phép xây dựng</li>
+                <li>Đăng ký phương tiện giao thông</li>
+                <li>Dịch vụ y tế, giáo dục</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 style="color: #1e40af; font-size: 18px; margin-bottom: 15px;">Tính năng công nghệ tiên tiến</h3>
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h4 style="color: #dc2626; margin-bottom: 10px;">🔐 Xác thực và Bảo mật</h4>
+            <ul style="margin-bottom: 15px;">
+              <li>Đọc thẻ CCCD gắn chip với độ chính xác cao</li>
+              <li>Tích hợp VNeID bước 2 cho xác thực điện tử</li>
+              <li>Sinh trắc học: vân tay, khuôn mặt, mống mắt</li>
+              <li>Mã hóa dữ liệu end-to-end</li>
+            </ul>
+
+            <h4 style="color: #dc2626; margin-bottom: 10px;">📱 Giao diện và Trải nghiệm</h4>
+            <ul style="margin-bottom: 15px;">
+              <li>Màn hình cảm ứng 24" full HD</li>
+              <li>Giao diện thân thiện, dễ sử dụng</li>
+              <li>Hỗ trợ đa ngôn ngữ (Việt, Anh, Hoa, Khmer)</li>
+              <li>Hướng dẫn bằng giọng nói và video</li>
+            </ul>
+
+            <h4 style="color: #dc2626; margin-bottom: 10px;">🔄 Tích hợp và Liên thông</h4>
+            <ul>
+              <li>Kết nối cơ sở dữ liệu quốc gia</li>
+              <li>API chuẩn 06/CP</li>
+              <li>Đồng bộ real-time với các hệ thống</li>
+              <li>Báo cáo và thống kê tự động</li>
+            </ul>
+          </div>
+
+          <h3 style="color: #1e40af; font-size: 18px; margin-bottom: 15px;">Lợi ích mang lại</h3>
+          <div style="display: flex; gap: 20px; margin: 20px 0;">
+            <div style="flex: 1; background: #e3f2fd; padding: 15px; border-radius: 8px;">
+              <h4 style="color: #1565c0; margin-bottom: 10px;">👥 Cho Công dân:</h4>
+              <ul>
+                <li>Giảm thời gian chờ đợi</li>
+                <li>Làm việc ngoài giờ hành chính</li>
+                <li>Minh bạch quy trình</li>
+                <li>Tiết kiệm chi phí đi lại</li>
+              </ul>
+            </div>
+            <div style="flex: 1; background: #f3e5f5; padding: 15px; border-radius: 8px;">
+              <h4 style="color: #7b1fa2; margin-bottom: 10px;">🏛️ Cho Cơ quan nhà nước:</h4>
+              <ul>
+                <li>Nâng cao hiệu quả công việc</li>
+                <li>Giảm tải cho công chức</li>
+                <li>Cải thiện chỉ số SIPAS</li>
+                <li>Hiện đại hóa dịch vụ công</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3 style="color: #1e40af; font-size: 18px; margin-bottom: 15px;">Triển khai thực tế</h3>
+          <p style="margin-bottom: 10px;">Hitech đã triển khai thành công hệ thống Kiosk Hành chính công tại:</p>
+          <ul style="margin-bottom: 20px;">
+            <li><strong>UBND TP.HCM:</strong> 50+ điểm phục vụ với 95% độ hài lòng</li>
+            <li><strong>Sở KH&ĐT Hà Nội:</strong> Xử lý 2000+ hồ sơ/ngày</li>
+            <li><strong>UBND tỉnh An Giang:</strong> Phủ sóng 100% phường/xã</li>
+            <li><strong>Trung tâm Hành chính Đà Nẵng:</strong> Giảm 60% thời gian chờ</li>
+          </ul>
+
+          <blockquote style="background: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 15px; margin: 20px 0; font-style: italic;">
+            <p>"Kiosk Hành chính công thông minh là cầu nối quan trọng trong việc xây dựng Chính phủ điện tử, mang lại sự thuận tiện tối đa cho người dân và doanh nghiệp."</p>
+            <cite style="font-weight: bold; color: #0ea5e9;">- Bà Trần Thị Lan, Chuyên gia Chuyển đổi số Hitech</cite>
+          </blockquote>
+        </div>
+      </div>
+    `,
+    image: "/home-slider-images10.jpg",
+    created_at: "2025-06-30T14:30:00Z",
+    updated_at: "2025-06-30T14:30:00Z",
+    author: "Trần Thị Lan",
+    category: "Chính phủ số",
+    template: "template1",
+    status: "published",
+    author_id: 2
+  },
+  {
+    id: 3,
     title: "Hitech ra mắt giải pháp AI cho ngành y tế: Cách mạng trong chẩn đoán bệnh",
     content: `
       <h2>Giải pháp AI tiên tiến trong y tế</h2>
@@ -47,7 +245,7 @@ export const mockPostsData: Post[] = [
     author_id: 1
   },
   {
-    id: 2,
+    id: 4,
     title: "Blockchain trong quản lý chuỗi cung ứng: Xu hướng không thể bỏ qua",
     content: `
       <h2>Blockchain - Giải pháp cho chuỗi cung ứng minh bạch</h2>
@@ -81,7 +279,7 @@ export const mockPostsData: Post[] = [
     author_id: 2
   },
   {
-    id: 3,
+    id: 5,
     title: "IoT và Smart City: Xây dựng thành phố thông minh tại Việt Nam",
     content: `
       <h2>Internet of Things - Kết nối mọi thứ</h2>
@@ -130,7 +328,7 @@ export const mockPostsData: Post[] = [
     author_id: 3
   },
   {
-    id: 4,
+    id: 6,
     title: "Big Data Analytics: Khai phá giá trị từ dữ liệu doanh nghiệp",
     content: `
       <h2>Sức mạnh của Big Data trong thời đại số</h2>
@@ -185,7 +383,7 @@ export const mockPostsData: Post[] = [
     author_id: 4
   },
   {
-    id: 5,
+    id: 7,
     title: "Cloud Computing: Chuyển đổi số với điện toán đám mây",
     content: `
       <h2>Điện toán đám mây - Tương lai của IT</h2>
@@ -248,7 +446,7 @@ export const mockPostsData: Post[] = [
     author_id: 5
   },
   {
-    id: 6,
+    id: 8,
     title: "Cybersecurity: Bảo vệ doanh nghiệp trong thời đại số",
     content: `
       <h2>An ninh mạng - Lá chắn bảo vệ doanh nghiệp</h2>

@@ -99,23 +99,23 @@ export default function Blog() {
     }, []);
     return (
         <section className={`${style.blog}`}>
-            <div className={`${style.container} max-w-[1170px] w-full m-auto`}>
-                <div className={`${style.title} text-[40px] ml-[2px] mt-10 pb-4`}>
+            <div className={`${style.container} max-w-[1170px] w-full mx-auto px-4`}>
+                <div className={`${style.title} text-2xl sm:text-3xl lg:text-[40px] ml-[2px] mt-10 pb-4`}>
                     <div className="flex w-[20%] h-[2.9px]">
                         <div className="flex-[6] bg-[#e91e1e]"></div>
                         <div className="flex-[4] bg-[#f8b133]"></div>
                     </div>
                 </div>
-                <div className="relative py-10">
-                    <h2 className="text-gray-200 text-5xl font-bold absolute inset-0 flex items-start leading-[5rem] uppercase">
+                <div className="relative py-6 sm:py-8 lg:py-10">
+                    <h2 className="text-gray-200 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold absolute inset-0 flex items-start leading-[1.2] sm:leading-[1.3] lg:leading-[5rem] uppercase">
                         Công Nghệ Tiên Phong
                     </h2>
-                    <h1 className="text-black text-4xl font-bold relative uppercase">
+                    <h1 className="text-black text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold relative uppercase">
                         Công Nghệ Tiên Phong
                     </h1>
                 </div>
-                <div className="relative py-6">
-                    <div className="max-w-6xl mx-auto grid grid-cols-5 gap-4">
+                <div className="relative py-4 sm:py-6">
+                    <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 lg:gap-4">
                         {technologys.map((technology, index) => (
                             <div key={technology.id} className="relative bg-white rounded-lg overflow-hidden shadow-md z-20">
                                 <Image
@@ -125,19 +125,19 @@ export default function Blog() {
                                     height={300}
                                     className="w-full h-auto object-cover"
                                 />
-                                <div className='absolute top-0 w-full h-full p-2 flex items-end'>
-                                    <p className='text-white max-700:text-xs max-400:text-[7px]'>{technology.alt}</p>
+                                <div className='absolute top-0 w-full h-full p-1 sm:p-2 flex items-end'>
+                                    <p className='text-white text-xs sm:text-sm lg:text-base'>{technology.alt}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
-                    <div className='absolute to-transparent w-[115%] top-[-12px] left-[-40px] max-500:left-0'>
-                        <Image width={300} height={300} src="/blog/backgroud-red.png" alt="" className='absolute to-transparent w-full top-16 left-[-38px]' />
+                    <div className='absolute to-transparent w-[115%] top-[-12px] left-[-40px] sm:left-0'>
+                        <Image width={300} height={300} src="/blog/backgroud-red.png" alt="" className='absolute to-transparent w-full top-8 sm:top-16 left-[-38px] sm:left-[-38px]' />
                     </div>
                     <div className='bg-red-600 w-full'></div>
                 </div>
                 <div className={`${style.listBlog}`}>
-                    <div className={`${style.nav} w-full mt-10`}>
+                    <div className={`${style.nav} w-full mt-6 sm:mt-8 lg:mt-10`}>
                         <ul className="flex p-0 m-0 list-none justify-between border-b-2 border-customGray">
                             <li
                                 style={{ 
@@ -147,7 +147,7 @@ export default function Blog() {
                                 }}
                                 data-tab="promotion"
                                 onClick={() => onTabClick("promotion")}
-                                className={currentActiveTab === "technology" ? "hidden" : ""}
+                                className={`text-sm sm:text-base lg:text-lg ${currentActiveTab === "technology" ? "hidden" : ""}`}
                             >
                                 Tin tức
                             </li>
@@ -159,12 +159,13 @@ export default function Blog() {
                                 }}
                                 data-tab="technology"
                                 onClick={() => onTabClick("technology")}
+                                className="text-sm sm:text-base lg:text-lg"
                             >
                                 Blog
                             </li>
                         </ul>
                     </div>
-                    <div id='blog-sale' className={`${style.proContent} mt-9 `}>
+                    <div id='blog-sale' className={`${style.proContent} mt-6 sm:mt-8 lg:mt-9 px-4`}>
                         <div className={`${style.item}`}>
                             <article>
                                 <div className={`${style.img} relative group`}>
@@ -177,7 +178,7 @@ export default function Blog() {
 
                                         </span>
                                     </Link>
-                                    <Image className={`${style.mobileImg}`} width={500} height={200} src={'/blog/phong-kham-da-khoa-vien-doan.jpg'} alt="sale" />
+                                    <Image className={`${style.mobileImg} w-full h-[200px] sm:h-[250px] md:h-[300px] object-cover`} width={500} height={200} src={'/blog/phong-kham-da-khoa-vien-doan.jpg'} alt="sale" />
                                 </div>
                                 <div className={`${style.content}`}>
                                     <Link
@@ -185,7 +186,7 @@ export default function Blog() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className='flex'>
-                                        <h4> Phần mềm quản trị bệnh viện HIS-LIS </h4>
+                                        <h4 className="text-sm sm:text-base lg:text-lg font-semibold leading-tight"> Phần mềm quản trị bệnh viện HIS-LIS </h4>
                                     </Link>
                                     {/* <div className={`${style.summary}`}>
                                         <p className='leading-[26px] text-justify overflow-hidden'>Với tổng giá trị giải thưởng lên đến hơn 4,7 tỷ đồng, MobiFone mang đến chương trình siêu khuyến mại “Vui tiêu dùng, rinh quà khủng"...</p>
@@ -201,7 +202,7 @@ export default function Blog() {
                                         rel="noopener noreferrer"
                                         className='flex' href={'https://www.youtube.com/watch?v=LElUuLqic9Q'}
                                     >
-                                        <Image className='w-[480px]' width={380} height={380} src="/blog/XTP-he-thong-quan-ly-hs-do-than-nhiey-bang-khuan-mat.jpg" alt="blog" />
+                                        <Image className='w-full h-[200px] sm:h-[250px] object-cover rounded-lg' width={380} height={380} src="/blog/XTP-he-thong-quan-ly-hs-do-than-nhiey-bang-khuan-mat.jpg" alt="blog" />
                                     </Link>
                                 </div>
                                 <div className={`${style.content}`}>
@@ -210,7 +211,7 @@ export default function Blog() {
                                         rel="noopener noreferrer"
                                         className='flex' href={'https://www.youtube.com/watch?v=LElUuLqic9Q'}
                                     >
-                                        <h5> XTP Hệ thống quản lý học sinh và đo thân nhiệt bằng nhận diện khuôn mặt</h5>
+                                        <h5 className="text-sm sm:text-base lg:text-lg font-semibold leading-tight"> XTP Hệ thống quản lý học sinh và đo thân nhiệt bằng nhận diện khuôn mặt</h5>
                                     </Link>
                                 </div>
                             </article>
@@ -221,7 +222,7 @@ export default function Blog() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        <Image className='w-[480px]' width={380} height={380} src="/blog/XTP-software-trien-khai-pahn-mem-quan-ly-bejnh-vien.jpg" alt="blog" />
+                                        <Image className='w-full h-[200px] sm:h-[250px] object-cover rounded-lg' width={380} height={380} src="/blog/XTP-software-trien-khai-pahn-mem-quan-ly-bejnh-vien.jpg" alt="blog" />
                                     </Link>
                                 </div>
 
@@ -230,7 +231,7 @@ export default function Blog() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className='flex' href={'https://www.youtube.com/watch?v=XWfgOHXdgPQ'}>
-                                        <h5> XTP Triển khai phần mềm quản lý bệnh viện thông minh XTP HIS - LIS</h5>
+                                        <h5 className="text-sm sm:text-base lg:text-lg font-semibold leading-tight"> XTP Triển khai phần mềm quản lý bệnh viện thông minh XTP HIS - LIS</h5>
                                     </Link>
                                     <div className={`${style.meta}`}>
                                     </div>

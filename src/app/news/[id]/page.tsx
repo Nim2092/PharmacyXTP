@@ -2,9 +2,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import NewsTemplateRenderer from '@/components/NewsTemplates/NewsTemplateRenderer';
+import Footer from '@/components/Footer';
 // Import mock API và environment config
 import { postsAPI } from '@/data/mockPosts';
 import { ENV_CONFIG, envLog } from '@/config/environment';
+import Navigation from '@/components/navigation';
 
 export default function NewsDetailPage() {
   const { id } = useParams();
@@ -74,8 +76,11 @@ export default function NewsDetailPage() {
   }
 
   return (
-    <div className="fixed inset-0 bg-white z-50 overflow-auto">
+    <div className="fixed inset-0 bg-white z-50 overflow-auto text-gray-800">
+      <Navigation />
       <NewsTemplateRenderer post={post} />
+      <Footer />
     </div>
+    
   );
 }
