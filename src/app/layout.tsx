@@ -159,7 +159,7 @@ export default function RootLayout({
     setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
-    },);
+    }, 100);
     return () => clearTimeout(timer);
   }, [pathname]);
 

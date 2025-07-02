@@ -1,15 +1,11 @@
-import Image from "next/image";
-
 export default function RecruitmentBanner({ banner, bannerTitle }: { banner: string; bannerTitle: string }) {
   return (
     <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden">
       {/* Background image */}
-      <Image
+      <img
         src={banner || "/home-slider-images01.jpg"}
         alt="Recruitment Banner"
-        fill
-        className="object-cover"
-        priority
+        className="absolute inset-0 w-full h-full object-cover"
       />
       {/* Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-60" />

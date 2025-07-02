@@ -13,10 +13,14 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"; 
 import { uploadFileToDrive } from '@/utils/googleDriveUpload';
+// Import mock data và environment config
+import { mockRecruitmentPageData, recruitmentPageAPI } from '@/data/mockRecruitmentPage';
+import { ENV_CONFIG, envLog } from '@/config/environment';
 
 export default function recruitment() {
     const [showForm, setShowForm] = useState(false);
     const [isLocked, setIsLocked] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [formData, setFormData] = useState({
         position: '',
@@ -51,13 +55,19 @@ export default function recruitment() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    const RoundImage = ({ src, alt, className = "" }: { src: string; alt?: string; className?: string }) => (
-    <img src={src} alt={alt} className={`rounded-full border-4 border-[#1553ad] object-cover ${className}`} />
-    );
+    const RoundImage = ({ src, alt, className = "" }: { src: string; alt?: string; className?: string }) => {
+        if (!src) return null;
+        return (
+            <img src={src} alt={alt} className={`rounded-full border-4 border-[#1553ad] object-cover ${className}`} />
+        );
+    };
 
-    const SquareImage = ({ src, alt, className = "" }: { src: string; alt?: string; className?: string }) => (
-        <img src={src} alt={alt} className={`rounded-lg object-cover ${className}`} />
-    );
+    const SquareImage = ({ src, alt, className = "" }: { src: string; alt?: string; className?: string }) => {
+        if (!src) return null;
+        return (
+            <img src={src} alt={alt} className={`rounded-lg object-cover ${className}`} />
+        );
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -69,29 +79,62 @@ export default function recruitment() {
             alert("Vui lòng tải lên file CV (PDF)");
             return;
         }
+        
+        setIsSubmitting(true);
+        
         try {
-            // 1. Upload file lên back-end, back-end sẽ trả về link Google Drive
+            // 1. Upload CV lên Google Drive
+            console.log('📤 Uploading CV to Google Drive...');
             const driveLink = await uploadFileToDrive(cvFile);
             if (!driveLink) {
                 alert("Không upload được file lên Google Drive!");
+                setIsSubmitting(false); // Fix: Reset loading state
                 return;
             }
+            console.log('✅ CV uploaded successfully:', driveLink);
 
-            // 2. Gửi form qua EmailJS, trường cv là link Google Drive
-            const formDataCopy = { ...formData, cv: driveLink };
+            // 2. Lưu data vào Google Sheets
+            console.log('📊 Saving data to Google Sheets...');
+            await saveToGoogleSheets(formData, driveLink);
+            console.log('✅ Data saved to Google Sheets');
+
+            // 3. Gửi email thông báo cho admin
+            console.log('📧 Sending notification email...');
+            const GOOGLE_SHEETS_LINK = 'https://docs.google.com/spreadsheets/d/1t-he4Ap19XPjw7OxkRx-9gHMdA-tgw21-dZVc33ZKoI/edit#gid=0';
+            
             await emailjs.send(
                 'service_qyw5t0d',
-                'template_1210',
-                formDataCopy,
+                'template_1210', // Template sẽ gửi đến vietkey951@gmail.com
+                {
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    sheetsLink: GOOGLE_SHEETS_LINK,
+                    timestamp: new Date().toLocaleString('vi-VN'),
+                    adminEmail: 'vietkey951@gmail.com', // Email admin để nhận thông báo
+                    applicantName: formData.name,
+                    position: 'Thực tập sinh/Sinh viên'
+                },
                 'VTy0S3ULSFWXJaFkJ'
             );
-            alert("Hồ sơ đã gửi thành công!");
-            setFormData({ position: '', name: '', university: '', specialized: '', skill: '', project: '', studentyear: '', email: '', phone: '', message: '' });
+            console.log('✅ Notification email sent');
+
+            alert("Hồ sơ đã gửi thành công! Admin sẽ liên hệ với bạn sớm.");
+            
+            // Reset form
+            setFormData({ 
+                position: '', name: '', university: '', specialized: '', 
+                skill: '', project: '', studentyear: '', email: '', phone: '', message: '' 
+            });
             setCvFile(null);
             setShowForm(false);
+            document.body.style.overflow = "auto";
+            
         } catch (error) {
-            alert("Có lỗi xảy ra, vui lòng thử lại!");
-            console.error("Lỗi gửi email:", error);
+            console.error("❌ Error in form submission:", error);
+            alert("Có lỗi xảy ra khi gửi hồ sơ. Vui lòng thử lại!");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -101,16 +144,85 @@ export default function recruitment() {
         }
     };
 
+    // Function để gửi data tới Google Sheets
+    const saveToGoogleSheets = async (formData: any, cvLink: string) => {
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxOuuTi4AiKovf_CXfwgRC5kAQSKYV7DiYIsoIR9v0M4rO_1wExkI5vWTCTEojLXCc5/exec';
+        
+        try {
+            console.log('📊 Sending data to Google Sheets:', {
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                message: formData.message?.substring(0, 50) + '...', // Log first 50 chars
+                cvLink: cvLink
+            });
+
+            const response = await fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    phone: formData.phone,
+                    message: formData.message,
+                    cvLink: cvLink
+                }),
+                mode: 'no-cors' // Cần thiết cho Google Apps Script
+            });
+
+            // Với no-cors, response sẽ không có body
+            // Nếu không có error thì coi như thành công
+            console.log('✅ Data sent to Google Sheets successfully');
+            return true;
+        } catch (error) {
+            console.error('❌ Error saving to Google Sheets:', error);
+            throw new Error('Không thể lưu dữ liệu vào Google Sheets: ' + error);
+        }
+    };
+
     useEffect(() => {
-        axios.get('http://localhost:8080/recruitment-page').then(res => {
-            let loaded = {};
+        const loadRecruitmentData = async () => {
             try {
-                loaded = JSON.parse(res.data.data || '{}');
-            } catch (e) {
-                loaded = {};
+                envLog('Loading recruitment data...', { useMockData: ENV_CONFIG.USE_MOCK_DATA });
+                
+                if (ENV_CONFIG.USE_MOCK_DATA) {
+                    // Sử dụng mock data
+                    envLog('Using mock data for recruitment page');
+                    const mockResponse = await recruitmentPageAPI.getRecruitmentPageData();
+                    let loaded = {};
+                    try {
+                        loaded = JSON.parse(mockResponse.data || '{}');
+                        envLog('Mock data loaded successfully', { dataKeys: Object.keys(loaded) });
+                    } catch (e) {
+                        envLog('Error parsing mock data', e);
+                        loaded = mockRecruitmentPageData; // Fallback to direct mock data
+                    }
+                    setRecruitmentData(loaded);
+                } else {
+                    // Sử dụng real API
+                    envLog('Using real API for recruitment page');
+                    const response = await axios.get(`${ENV_CONFIG.API_BASE_URL}${ENV_CONFIG.RECRUITMENT_PAGE_ENDPOINT}`);
+                    let loaded = {};
+                    try {
+                        loaded = JSON.parse(response.data.data || '{}');
+                        envLog('Real API data loaded successfully', { dataKeys: Object.keys(loaded) });
+                    } catch (e) {
+                        envLog('Error parsing real API data', e);
+                        loaded = {};
+                    }
+                    setRecruitmentData(loaded);
+                }
+            } catch (error) {
+                envLog('Error loading recruitment data', error);
+                // Fallback to mock data on error
+                envLog('Falling back to mock data due to error');
+                setRecruitmentData(mockRecruitmentPageData);
             }
-            setRecruitmentData(loaded);
-        });
+        };
+
+        loadRecruitmentData();
     }, []);
 
     return (
@@ -139,12 +251,14 @@ export default function recruitment() {
                 </h1>
                 <hr className="w-[96%] h-[6px] bg-gray-100 border-0 my-6" />
                 <div className="flex flex-row w-full justify-center items-start gap-8 mt-4">
-                    <img
-                        src={recruitmentData?.intro?.logo || ''}
-                        alt="Hitech Vietnam"
-                        className="w-[350px] h-auto object-contain"
-                        style={{ minWidth: 220 }}
-                    />
+                    {recruitmentData?.intro?.logo && (
+                        <img
+                            src={recruitmentData.intro.logo}
+                            alt="Hitech Vietnam"
+                            className="w-[350px] h-auto object-contain"
+                            style={{ minWidth: 220 }}
+                        />
+                    )}
                     <div className="max-w-[900px] text-[28px] leading-[1.4] text-black text-justify">
                         {recruitmentData?.intro?.text || ''}
                     </div>
@@ -197,11 +311,12 @@ export default function recruitment() {
                     </button>
 
                     {/* Ảnh mờ trái */}
-                    {recruitmentData?.studentImages?.length > 1 && (
+                    {recruitmentData?.studentImages?.length > 1 && 
+                     recruitmentData.studentImages[(currentSlide - 1 + recruitmentData.studentImages.length) % recruitmentData.studentImages.length]?.src && (
                         <img
                             src={recruitmentData.studentImages[
                                 (currentSlide - 1 + recruitmentData.studentImages.length) % recruitmentData.studentImages.length
-                            ]?.src}
+                            ].src}
                             alt=""
                             className={`w-[280px] h-[190px] object-cover blur-sm mx-4 transition-all duration-700
                                 ${isSliding ? "opacity-0" : "opacity-30"}`}
@@ -230,11 +345,13 @@ export default function recruitment() {
                         >
                             {recruitmentData?.studentImages?.map((img: any, idx: number) => (
                                 <div key={idx} className="flex flex-col items-center">
-                                    <img
-                                        src={img.src}
-                                        alt={img.alt}
-                                        className="w-[600px] h-[350px] object-cover shadow-lg mx-auto"
-                                    />
+                                    {img.src && (
+                                        <img
+                                            src={img.src}
+                                            alt={img.alt}
+                                            className="w-[600px] h-[350px] object-cover shadow-lg mx-auto"
+                                        />
+                                    )}
                                     {img.alt && (
                                         <div className="mt-4 text-center text-lg text-gray-700">{img.alt}</div>
                                     )}
@@ -244,11 +361,12 @@ export default function recruitment() {
                     </div>
 
                     {/* Ảnh mờ phải */}
-                    {recruitmentData?.studentImages?.length > 1 && (
+                    {recruitmentData?.studentImages?.length > 1 && 
+                     recruitmentData.studentImages[(currentSlide + 1) % recruitmentData.studentImages.length]?.src && (
                         <img
                             src={recruitmentData.studentImages[
                                 (currentSlide + 1) % recruitmentData.studentImages.length
-                            ]?.src}
+                            ].src}
                             alt=""
                             className={`w-[280px] h-[190px] object-cover blur-sm mx-4 transition-all duration-700
                                 ${isSliding ? "opacity-0" : "opacity-30"}`}
@@ -448,9 +566,24 @@ export default function recruitment() {
                         {/* Nút gửi */}
                         <button
                             type="submit"
-                            className="w-full bg-[#00b14f] text-white font-bold py-2 rounded hover:bg-[#009944] transition"
+                            disabled={isSubmitting}
+                            className={`w-full font-bold py-2 rounded transition ${
+                                isSubmitting 
+                                    ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
+                                    : 'bg-[#00b14f] text-white hover:bg-[#009944]'
+                            }`}
                         >
-                            Nộp hồ sơ ứng tuyển
+                            {isSubmitting ? (
+                                <span className="flex items-center justify-center">
+                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Đang gửi...
+                                </span>
+                            ) : (
+                                'Nộp hồ sơ ứng tuyển'
+                            )}
                         </button>
                     </form>
                 </section>

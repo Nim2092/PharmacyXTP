@@ -1,4 +1,4 @@
-/* Custom CKEditor styles with Custom Edge Handles */
+/* Custom CKEditor styles - CLEAN VERSION */
 .ck-editor {
   font-family: "Roboto", sans-serif;
 }
@@ -17,7 +17,7 @@
   box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
 }
 
-/* Đảm bảo text màu đen trên nền trắng */
+/* Content text styling */
 .ck-content {
   color: #000000 !important;
   background-color: #ffffff !important;
@@ -36,7 +36,7 @@
   color: #000000 !important;
 }
 
-/* Toolbar customization */
+/* Toolbar styling */
 .ck-toolbar {
   border-radius: 4px 4px 0 0;
   background: #f8f9fa !important;
@@ -56,49 +56,9 @@
   color: white !important;
 }
 
-/* FORCE ENABLE NATIVE CKEDITOR RESIZE HANDLES */
-.ck-widget.image > .ck-widget__resizer {
-  display: block !important;
-  visibility: visible !important;
-  z-index: 1000 !important;
-  position: absolute !important;
-}
+/* === CUSTOM HANDLES SYSTEM - 9 HANDLES === */
 
-.ck-widget__resizer__handle {
-  background: #0070f3 !important;
-  border: 2px solid #fff !important;
-  border-radius: 4px !important;
-  width: 12px !important;
-  height: 12px !important;
-  position: absolute !important;
-  z-index: 1001 !important;
-  display: block !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  box-shadow: 0 2px 8px rgba(0, 112, 243, 0.3) !important;
-  transition: all 0.2s ease !important;
-}
-
-.ck-widget__resizer__handle:hover {
-  background: #005bb5 !important;
-  transform: scale(1.2) !important;
-  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.5) !important;
-}
-
-/* Handles ở 4 góc - NATIVE CKEDITOR (Màu xanh dương) */
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-left,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-right,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-left,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-right {
-  width: 16px !important;
-  height: 16px !important;
-  background: #007bff !important;
-  border: 3px solid #ffffff !important;
-  border-radius: 50% !important;
-  box-shadow: 0 3px 8px rgba(0, 123, 255, 0.5) !important;
-}
-
-/* DISABLE native handles ở 4 cạnh để dùng custom handles */
+/* Hide native CKEditor handles - chỉ giữ 4 góc */
 .ck-widget__resizer__handle.ck-widget__resizer__handle-top,
 .ck-widget__resizer__handle.ck-widget__resizer__handle-bottom,
 .ck-widget__resizer__handle.ck-widget__resizer__handle-left,
@@ -106,94 +66,154 @@
   display: none !important;
 }
 
-/* CUSTOM HANDLES: Tạo handles ở cạnh trên/dưới bằng pseudo-elements */
-.ck-widget.image.ck-widget_selected::before,
-.ck-widget.image.ck-widget_selected::after {
-  content: "";
-  position: absolute;
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
-  border: 2px solid #ffffff !important;
-  border-radius: 4px !important;
-  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.4) !important;
-  transition: all 0.2s ease !important;
+/* Style for native corner handles (4 góc xanh dương) */
+.ck-widget__resizer__handle.ck-widget__resizer__handle-top-left,
+.ck-widget__resizer__handle.ck-widget__resizer__handle-top-right,
+.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-left,
+.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-right {
+  width: 12px !important;
+  height: 12px !important;
+  background: #007bff !important;
+  border: 2px solid #fff !important;
+  border-radius: 3px !important;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4) !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
   pointer-events: auto !important;
-  z-index: 1002 !important;
+  z-index: 999999 !important;
 }
 
-/* Handle cạnh trên (CSS pseudo-element) */
-.ck-widget.image.ck-widget_selected::before {
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 8px;
-  cursor: n-resize;
-}
-
-/* Handle cạnh dưới (CSS pseudo-element) */
-.ck-widget.image.ck-widget_selected::after {
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 8px;
-  cursor: s-resize;
-}
-
-/* CUSTOM HANDLES: Trái/phải bằng JavaScript */
+/* Custom edge handles cho 4 cạnh */
 .ck-custom-edge-handle {
   position: absolute !important;
-  border: 3px solid #ffffff !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  border: 2px solid #fff !important;
+  border-radius: 6px !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4) !important;
   transition: all 0.2s ease !important;
   pointer-events: auto !important;
-  z-index: 99999 !important;
+  z-index: 999999 !important;
   display: block !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
 
-.ck-custom-edge-handle.left {
-  background: #ff6b6b !important;
+/* Left handle - màu xanh lá cây */
+.ck-custom-edge-handle.ck-custom-edge-handle-left {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+  top: 50% !important;
+  left: -6px !important;
+  transform: translateY(-50%) !important;
+  width: 8px !important;
+  height: 24px !important;
+  cursor: w-resize !important;
 }
 
-.ck-custom-edge-handle.right {
-  background: #4ecdc4 !important;
+/* Right handle - màu xanh lá cây */
+.ck-custom-edge-handle.ck-custom-edge-handle-right {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+  top: 50% !important;
+  right: -6px !important;
+  transform: translateY(-50%) !important;
+  width: 8px !important;
+  height: 24px !important;
+  cursor: e-resize !important;
 }
 
-/* Hover effects cho các handles */
-.ck-custom-edge-handle:hover {
-  transform: translateY(-50%) scale(1.2) !important;
+/* Top handle - màu xanh lá cây */
+.ck-custom-edge-handle.ck-custom-edge-handle-top {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+  top: -6px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 24px !important;
+  height: 8px !important;
+  cursor: n-resize !important;
 }
 
-.ck-widget.image.ck-widget_selected::before:hover,
-.ck-widget.image.ck-widget_selected::after:hover {
-  background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%) !important;
-  transform: translateX(-50%) scale(1.2) !important;
+/* Bottom handle - màu xanh lá cây */
+.ck-custom-edge-handle.ck-custom-edge-handle-bottom {
+  background: linear-gradient(135deg, #28a745, #20c997) !important;
+  bottom: -6px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 24px !important;
+  height: 8px !important;
+  cursor: s-resize !important;
 }
 
-/* FORCE hiển thị khi image được chọn */
-.ck-widget.image.ck-widget_selected > .ck-widget__resizer {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-.ck-widget.image.ck-widget_selected > .ck-widget__resizer > .ck-widget__resizer__handle {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+/* Corner handles - màu xanh dương (ở 4 góc) */
+.ck-corner-handle {
+  position: absolute !important;
+  background: #007bff !important;
+  border: 2px solid #fff !important;
+  border-radius: 3px !important;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4) !important;
   pointer-events: auto !important;
+  z-index: 999999 !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  width: 12px !important;
+  height: 12px !important;
 }
 
-/* Đảm bảo widget không che handles */
-.ck-widget.image {
-  position: relative !important;
-  overflow: visible !important;
+/* Drag handle - màu tím (ở giữa để kéo) */
+.ck-drag-handle {
+  position: absolute !important;
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe) !important;
+  border: 2px solid #fff !important;
+  border-radius: 8px !important;
+  cursor: move !important;
+  z-index: 999999 !important;
+  box-shadow: 0 2px 8px rgba(108, 92, 231, 0.4) !important;
+  pointer-events: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 1 !important;
+  color: white !important;
+  font-weight: bold !important;
+  width: 32px !important;
+  height: 20px !important;
+  top: -12px !important;
+  right: 50% !important;
+  transform: translateX(50%) !important;
+  font-size: 10px !important;
 }
 
-/* Image styles */
+/* Hide native handles for widgets with custom handles */
+.ck-widget[data-custom-handles="true"]
+  .ck-widget__resizer__handle:not(.ck-custom-edge-handle):not(
+    .ck-corner-handle
+  ):not(.ck-drag-handle) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Ensure custom handles are always visible */
+.ck-custom-edge-handle,
+.ck-corner-handle,
+.ck-drag-handle {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 999999 !important;
+  position: absolute !important;
+}
+
+/* Hover effects */
+.ck-custom-edge-handle:hover,
+.ck-corner-handle:hover,
+.ck-drag-handle:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* === IMAGE STYLES === */
 .ck-content .image {
   margin: 1em 0;
   position: relative;
@@ -208,13 +228,17 @@
   min-height: 50px;
 }
 
-/* Image selection border */
 .ck-widget.image.ck-widget_selected img {
   border: 2px solid #0070f3 !important;
   box-shadow: 0 0 8px rgba(0, 112, 243, 0.3) !important;
 }
 
-/* Image alignment styles */
+.ck-widget.image {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* === ALIGNMENT STYLES === */
 .ck-content .image.image-style-block-align-left {
   float: left;
   margin-right: 1.5em;
@@ -231,7 +255,49 @@
   display: block;
 }
 
-/* Table styles */
+/* === TEXT ALIGNMENT === */
+.ck-content .text-align-left {
+  text-align: left;
+}
+.ck-content .text-align-center {
+  text-align: center;
+}
+.ck-content .text-align-right {
+  text-align: right;
+}
+.ck-content .text-align-justify {
+  text-align: justify;
+}
+
+/* === OTHER CONTENT STYLES === */
+.ck-content a {
+  color: #0070f3;
+  text-decoration: underline;
+}
+
+.ck-content blockquote {
+  border-left: 4px solid #0070f3;
+  padding-left: 1em;
+  margin: 1em 0;
+  font-style: italic;
+  background: #f8f9fa;
+  padding: 1em;
+  border-radius: 0 4px 4px 0;
+}
+
+.ck-content .text-tiny {
+  font-size: 0.7em;
+}
+.ck-content .text-small {
+  font-size: 0.85em;
+}
+.ck-content .text-big {
+  font-size: 1.4em;
+}
+.ck-content .text-huge {
+  font-size: 1.8em;
+}
+
 .ck-content .table {
   margin: 1em 0;
   border-collapse: collapse;
@@ -249,54 +315,13 @@
   font-weight: bold;
 }
 
-/* Text alignment styles */
-.ck-content .text-align-left {
-  text-align: left;
-}
-
-.ck-content .text-align-center {
-  text-align: center;
-}
-
-.ck-content .text-align-right {
-  text-align: right;
-}
-
-.ck-content .text-align-justify {
-  text-align: justify;
-}
-
-/* Link styles */
-.ck-content a {
-  color: #0070f3;
-  text-decoration: underline;
-}
-
-/* Blockquote styles */
-.ck-content blockquote {
-  border-left: 4px solid #0070f3;
-  padding-left: 1em;
-  margin: 1em 0;
-  font-style: italic;
-  background: #f8f9fa;
-  padding: 1em;
-  border-radius: 0 4px 4px 0;
-}
-
-/* Font sizes */
-.ck-content .text-tiny { font-size: 0.7em; }
-.ck-content .text-small { font-size: 0.85em; }
-.ck-content .text-big { font-size: 1.4em; }
-.ck-content .text-huge { font-size: 1.8em; }
-
-/* Upload progress */
 .ck-progress-bar {
   background: #0070f3;
   height: 2px;
   border-radius: 1px;
 }
 
-/* Decoupled editor styles */
+/* === DECOUPLED EDITOR === */
 .ck-toolbar-container {
   border-bottom: none !important;
 }
@@ -306,418 +331,7 @@
   border-radius: 0 0 4px 4px !important;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .ck-toolbar {
-    flex-wrap: wrap;
-  }
-  
-  .ck-editor__editable {
-    min-height: 200px;
-    padding: 15px;
-  }
-}
-.ck-editor {
-  font-family: "Roboto", sans-serif;
-}
-
-.ck-editor__editable {
-  min-height: 300px;
-  max-height: 500px;
-  padding: 20px;
-  border-radius: 4px;
-  color: #000000 !important; /* Văn bản màu đen */
-  background-color: #ffffff !important; /* Background màu trắng */
-}
-
-.ck-editor__editable:focus {
-  border-color: #0070f3;
-  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
-}
-
-/* Đảm bảo tất cả text trong editor đều màu đen trên nền trắng */
-.ck-content {
-  color: #000000 !important;
-  background-color: #ffffff !important;
-}
-
-.ck-content p {
-  color: #000000 !important;
-}
-
-.ck-content h1,
-.ck-content h2,
-.ck-content h3,
-.ck-content h4,
-.ck-content h5,
-.ck-content h6 {
-  color: #000000 !important;
-}
-
-.ck-content li {
-  color: #000000 !important;
-}
-
-.ck-content td,
-.ck-content th {
-  color: #000000 !important;
-}
-
-/* Đảm bảo editor content area có background trắng */
-.ck-editor__editable.ck-content {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-}
-
-/* Toolbar customization */
-.ck-toolbar {
-  border-radius: 4px 4px 0 0;
-  background: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.ck-toolbar__separator {
-  background: #dee2e6;
-}
-
-/* Button styling */
-.ck-button {
-  border-radius: 2px;
-}
-
-.ck-button:hover {
-  background: #e9ecef;
-}
-
-.ck-button.ck-on {
-  background: #0070f3;
-  color: white;
-}
-
-/* Image resize handles - đảm bảo hiển thị và hoạt động */
-.ck-widget.image > .ck-widget__resizer {
-  display: block !important;
-  visibility: visible !important;
-  z-index: 1000 !important;
-  position: absolute !important;
-}
-
-.ck-widget__resizer__handle {
-  background: #0070f3 !important;
-  border: 1px solid #fff !important;
-  border-radius: 2px !important;
-  width: 8px !important;
-  height: 8px !important;
-  cursor: nw-resize !important;
-  position: absolute !important;
-  z-index: 1001 !important;
-  display: block !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-.ck-widget__resizer__handle:hover {
-  background: #005bb5 !important;
-  transform: scale(1.2) !important;
-  box-shadow: 0 0 5px rgba(0, 112, 243, 0.5) !important;
-}
-
-/* Đảm bảo image có thể được select và resize */
-.ck-content .image {
-  margin: 1em 0;
-  position: relative;
-  display: inline-block;
-}
-
-.ck-content .image img {
-  max-width: 100%;
-  height: auto;
-  cursor: pointer;
-  resize: both;
-  overflow: auto;
-  min-width: 50px;
-  min-height: 50px;
-}
-
-/* Cho phép resize ảnh bằng CSS resize property */
-.ck-widget.image.ck-widget_selected img {
-  resize: both !important;
-  overflow: auto !important;
-  border: 2px dashed #0070f3 !important;
-}
-
-/* Style cho resize handles - Cả góc và cạnh */
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-left,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-right,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-left,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-right {
-  width: 10px !important;
-  height: 10px !important;
-  background: #0070f3 !important;
-  border: 2px solid #fff !important;
-  border-radius: 50% !important;
-}
-
-/* Resize handles cho các cạnh */
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom {
-  width: 20px !important;
-  height: 6px !important;
-  background: #0070f3 !important;
-  border: 1px solid #fff !important;
-  border-radius: 3px !important;
-}
-
-.ck-widget__resizer__handle.ck-widget__resizer__handle-left,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-right {
-  width: 6px !important;
-  height: 20px !important;
-  background: #0070f3 !important;
-  border: 1px solid #fff !important;
-  border-radius: 3px !important;
-}
-
-/* Resize handles tại các góc */
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-left {
-  cursor: nw-resize !important;
-}
-
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-right {
-  cursor: ne-resize !important;
-}
-
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-left {
-  cursor: sw-resize !important;
-}
-
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-right {
-  cursor: se-resize !important;
-}
-
-/* Resize handles tại các cạnh */
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom {
-  cursor: n-resize !important;
-}
-
-.ck-widget__resizer__handle.ck-widget__resizer__handle-left,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-right {
-  cursor: e-resize !important;
-}
-
-/* Force hiển thị TẤT CẢ resize handles khi image được chọn */
-.ck-widget.image.ck-widget_selected > .ck-widget__resizer {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-.ck-widget.image.ck-widget_selected
-  > .ck-widget__resizer
-  > .ck-widget__resizer__handle {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-.ck-widget.image:hover > .ck-widget__resizer {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-.ck-widget.image:hover > .ck-widget__resizer > .ck-widget__resizer__handle {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-/* Enable manual resize with CSS resize property as backup */
-.ck-content .image.ck-widget_selected img {
-  resize: both !important;
-  overflow: auto !important;
-  border: 2px dashed #0070f3 !important;
-}
-
-/* Custom image shapes */
-.ck-content .image-square img {
-  aspect-ratio: 1/1 !important;
-  object-fit: cover !important;
-  width: 200px !important;
-  height: 200px !important;
-}
-
-.ck-content .image-rounded img {
-  border-radius: 15px !important;
-  overflow: hidden !important;
-}
-
-.ck-content .image-circle img {
-  border-radius: 50% !important;
-  aspect-ratio: 1/1 !important;
-  object-fit: cover !important;
-  width: 200px !important;
-  height: 200px !important;
-}
-
-.ck-content .image-hexagon img {
-  width: 200px !important;
-  height: 200px !important;
-  object-fit: cover !important;
-  clip-path: polygon(
-    25% 0%,
-    75% 0%,
-    100% 50%,
-    75% 100%,
-    25% 100%,
-    0% 50%
-  ) !important;
-}
-
-/* Additional shape variations */
-.ck-content .image-diamond img {
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%) !important;
-  aspect-ratio: 1/1 !important;
-  object-fit: cover !important;
-}
-
-.ck-content .image-triangle img {
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%) !important;
-  aspect-ratio: 1/1 !important;
-  object-fit: cover !important;
-}
-
-/* Resize handles for shaped images */
-.ck-content .image-square.ck-widget_selected,
-.ck-content .image-circle.ck-widget_selected,
-.ck-content .image-hexagon.ck-widget_selected {
-  position: relative;
-}
-
-.ck-content .image-square.ck-widget_selected::after,
-.ck-content .image-circle.ck-widget_selected::after,
-.ck-content .image-hexagon.ck-widget_selected::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  right: -5px;
-  width: 10px;
-  height: 10px;
-  background: #0070f3;
-  border: 1px solid #fff;
-  cursor: nw-resize;
-  border-radius: 2px;
-}
-
-/* Alignment buttons styling */
-.ck-button.ck-alignment-dropdown > .ck-button__label {
-  display: inline-block !important;
-}
-
-/* Image styles */
-.ck-content .image {
-  margin: 1em 0;
-}
-
-.ck-content .image.image-style-block-align-left {
-  float: left;
-  margin-right: 1.5em;
-}
-
-.ck-content .image.image-style-block-align-right {
-  float: right;
-  margin-left: 1.5em;
-}
-
-.ck-content .image.image-style-block-align-center {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-
-/* Table styles */
-.ck-content .table {
-  margin: 1em 0;
-  border-collapse: collapse;
-}
-
-.ck-content .table td,
-.ck-content .table th {
-  border: 1px solid #bfbfbf;
-  padding: 0.5em;
-  min-width: 2em;
-}
-
-.ck-content .table th {
-  background: #f8f9fa;
-  font-weight: bold;
-}
-
-/* Alignment styles */
-.ck-content .text-align-left {
-  text-align: left;
-}
-
-.ck-content .text-align-center {
-  text-align: center;
-}
-
-.ck-content .text-align-right {
-  text-align: right;
-}
-
-.ck-content .text-align-justify {
-  text-align: justify;
-}
-
-/* Link styles */
-.ck-content a {
-  color: #0070f3;
-  text-decoration: underline;
-}
-
-.ck-content a:hover {
-  text-decoration: none;
-}
-
-/* Blockquote styles */
-.ck-content blockquote {
-  border-left: 4px solid #0070f3;
-  padding-left: 1em;
-  margin: 1em 0;
-  font-style: italic;
-  background: #f8f9fa;
-  padding: 1em;
-  border-radius: 0 4px 4px 0;
-}
-
-/* Font size adjustments */
-.ck-content .text-tiny {
-  font-size: 0.7em;
-}
-
-.ck-content .text-small {
-  font-size: 0.85em;
-}
-
-.ck-content .text-big {
-  font-size: 1.4em;
-}
-
-.ck-content .text-huge {
-  font-size: 1.8em;
-}
-
-/* Upload progress indicator */
-.ck-progress-bar {
-  background: #0070f3;
-  height: 2px;
-  border-radius: 1px;
-}
-
-/* Responsive design */
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
   .ck-toolbar {
     flex-wrap: wrap;
@@ -727,247 +341,4 @@
     min-height: 200px;
     padding: 15px;
   }
-}
-
-/* Tắt dark mode và đảm bảo luôn có background trắng */
-.ck-toolbar {
-  background: #f8f9fa !important;
-  border-color: #e9ecef !important;
-}
-
-.ck-editor__editable {
-  background: #ffffff !important;
-  color: #000000 !important;
-}
-
-.ck-button:hover {
-  background: #e9ecef !important;
-}
-
-/* FORCE ENABLE ALL NATIVE CKEDITOR RESIZE HANDLES + CUSTOM EDGE HANDLES */
-
-/* Enable tất cả native CKEditor resize */
-.ck-widget__resizer {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-/* CUSTOM: Tạo 4 handles ở cạnh (thay thế native handles cạnh) */
-.ck-widget.image.ck-widget_selected::before,
-.ck-widget.image.ck-widget_selected::after {
-  content: "";
-  position: absolute;
-  background: linear-gradient(
-    135deg,
-    #28a745 0%,
-    #20c997 100%
-  ) !important; /* Màu xanh lá khác với góc */
-  border: 2px solid #ffffff !important;
-  border-radius: 4px !important;
-  box-shadow: 0 2px 6px rgba(40, 167, 69, 0.4) !important;
-  transition: all 0.2s ease !important;
-  pointer-events: auto !important;
-  z-index: 1002 !important;
-}
-
-/* Handle cạnh trên (CSS pseudo-element) */
-.ck-widget.image.ck-widget_selected::before {
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 8px;
-  cursor: n-resize;
-}
-
-/* Handle cạnh dưới (CSS pseudo-element) */
-.ck-widget.image.ck-widget_selected::after {
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 8px;
-  cursor: s-resize;
-}
-
-/* Tạo 2 handles cạnh trái và phải bằng JavaScript - FORCE VISIBLE */
-.ck-custom-edge-handle {
-  position: absolute !important;
-  background: #28a745 !important;
-  border: 3px solid #ffffff !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.6) !important;
-  transition: all 0.2s ease !important;
-  pointer-events: auto !important;
-  z-index: 99999 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  font-size: 12px !important;
-  color: white !important;
-  font-weight: bold !important;
-}
-
-.ck-custom-edge-handle.left {
-  top: 50% !important;
-  left: -12px !important;
-  transform: translateY(-50%) !important;
-  width: 20px !important;
-  height: 40px !important;
-  cursor: w-resize !important;
-}
-
-.ck-custom-edge-handle.right {
-  top: 50% !important;
-  right: -12px !important;
-  transform: translateY(-50%) !important;
-  width: 20px !important;
-  height: 40px !important;
-  cursor: e-resize !important;
-}
-
-/* FORCE hiển thị custom handles - OVERRIDE TẤT CẢ */
-.ck-widget.image .ck-custom-edge-handle,
-.ck-widget.image.ck-widget_selected .ck-custom-edge-handle,
-.ck-widget.image:hover .ck-custom-edge-handle {
-  display: flex !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-/* Đảm bảo widget không che handles */
-.ck-widget.image {
-  position: relative !important;
-  overflow: visible !important;
-}
-
-/* Hover effects cho custom handles (cạnh) */
-.ck-custom-edge-handle:hover,
-.ck-widget.image.ck-widget_selected::before:hover,
-.ck-widget.image.ck-widget_selected::after:hover {
-  background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%) !important;
-  transform: scale(1.2) !important;
-  box-shadow: 0 4px 12px rgba(32, 201, 151, 0.5) !important;
-}
-
-/* FORCE hiển thị TẤT CẢ handles native của CKEditor - CHỈ 4 GÓC */
-.ck-widget__resizer__handle {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  background: #007bff !important;
-  border: 2px solid #ffffff !important;
-  border-radius: 4px !important;
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3) !important;
-  transition: all 0.2s ease !important;
-}
-
-/* Handles ở 4 góc - TĂNG KÍCH THƯỚC và FORCE ENABLE */
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-left,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-right,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-left,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-right {
-  width: 16px !important;
-  height: 16px !important;
-  background: #007bff !important;
-  border: 3px solid #ffffff !important;
-  border-radius: 50% !important;
-  box-shadow: 0 3px 8px rgba(0, 123, 255, 0.5) !important;
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  z-index: 1000 !important;
-}
-
-/* DISABLE native handles ở 4 cạnh để tránh trùng lặp với custom handles */
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-left,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-right {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-
-/* Hover effects cho handles góc (native) và handles cạnh (custom) */
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-left:hover,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-top-right:hover,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-left:hover,
-.ck-widget__resizer__handle.ck-widget__resizer__handle-bottom-right:hover {
-  background: #0056b3 !important;
-  transform: scale(1.2) !important;
-  box-shadow: 0 4px 12px rgba(0, 86, 179, 0.5) !important;
-  border-color: #ffffff !important;
-}
-
-/* FORCE hiển thị khi image được chọn */
-.ck-widget.image.ck-widget_selected > .ck-widget__resizer {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-.ck-widget.image.ck-widget_selected
-  > .ck-widget__resizer
-  > .ck-widget__resizer__handle {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-/* FORCE hiển thị khi hover */
-.ck-widget.image:hover > .ck-widget__resizer {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-.ck-widget.image:hover > .ck-widget__resizer > .ck-widget__resizer__handle {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-
-/* PROTECTION: Đảm bảo kích thước ảnh không bị reset khi căn chỉnh */
-.ck-content .image img[data-original-width] {
-  width: attr(data-original-width px) !important;
-}
-
-.ck-content .image img[data-original-height] {
-  height: attr(data-original-height px) !important;
-}
-
-/* Force preserve custom dimensions when alignment changes */
-.ck-content .image.image-style-block-align-left img,
-.ck-content .image.image-style-block-align-right img,
-.ck-content .image.image-style-block-align-center img {
-  width: var(--custom-width, auto) !important;
-  height: var(--custom-height, auto) !important;
-}
-
-/* Additional protection via data attributes */
-.ck-widget.image[data-custom-width] img {
-  width: attr(data-custom-width px) !important;
-}
-
-.ck-widget.image[data-custom-height] img {
-  height: attr(data-custom-height px) !important;
-}
-
-/* Force specific dimensions for images with custom sizing */
-.ck-content img[width][height] {
-  width: attr(width px) !important;
-  height: attr(height px) !important;
-  max-width: none !important;
-  max-height: none !important;
 }

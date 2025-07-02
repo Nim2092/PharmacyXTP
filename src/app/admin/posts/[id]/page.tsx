@@ -3,9 +3,9 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import axios from "axios";
 import dynamic from "next/dynamic";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-const CKEditor = dynamic(() => import("@ckeditor/ckeditor5-react").then(mod => mod.CKEditor), { ssr: false });
+import TemplateSelect from '@/components/NewsTemplates/TemplateSelect';
+import NewsTemplateRenderer from '@/components/NewsTemplates/NewsTemplateRenderer';
+import { TemplateType } from '@/components/NewsTemplates/NewsTemplateRenderer';
 
 export default function PostDetailPage() {
   const router = useRouter();
@@ -17,9 +17,90 @@ export default function PostDetailPage() {
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
   const [editImage, setEditImage] = useState<string | null>(null);
+  const [editTemplate, setEditTemplate] = useState<TemplateType>('template1');
+  const [editAuthor, setEditAuthor] = useState("");
+  const [editCategory, setEditCategory] = useState("");
+  const [editStatus, setEditStatus] = useState("draft");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [saving, setSaving] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [editorReady, setEditorReady] = useState(false);
+  const [editorInstance, setEditorInstance] = useState<any>(null);
+  const ClassicEditorRef = useRef<any>(null);
+  const editorContainerRef = useRef<HTMLDivElement>(null);
+  const toolbarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Load CKEditor build
+  useEffect(() => {
+    if (!isClient) return;
+    let mounted = true;
+    
+    import('@ckeditor/ckeditor5-build-decoupled-document').then((mod) => {
+      if (mounted) {
+        ClassicEditorRef.current = mod.default;
+        setEditorReady(true);
+        console.log('CKEditor decoupled document loaded successfully');
+      }
+    }).catch((error) => {
+      console.error('Failed to load CKEditor:', error);
+    });
+    
+    return () => { mounted = false; };
+  }, [isClient]);
+
+  // Initialize CKEditor when editing
+  useEffect(() => {
+    if (isClient && editorReady && isEditing && ClassicEditorRef.current && editorContainerRef.current && !editorInstance) {
+      const initEditor = async () => {
+        try {
+          const editor = await ClassicEditorRef.current.create(editorContainerRef.current, {
+            placeholder: 'Nhập nội dung bài viết...'
+          });
+          
+          console.log('🎉 CKEditor is ready for editing!', editor);
+          setEditorInstance(editor);
+          
+          // Gắn toolbar cho decoupled editor
+          if (toolbarRef.current && editor.ui?.view?.toolbar?.element) {
+            toolbarRef.current.innerHTML = '';
+            toolbarRef.current.appendChild(editor.ui.view.toolbar.element);
+            console.log('🔧 Toolbar attached for decoupled editor');
+          }
+          
+          // Set initial content
+          if (editContent) {
+            editor.setData(editContent);
+          }
+          
+          // Listen for content changes
+          editor.model.document.on('change:data', () => {
+            setEditContent(editor.getData());
+          });
+          
+        } catch (error) {
+          console.error('❌ Failed to initialize CKEditor:', error);
+        }
+      };
+      
+      initEditor();
+    }
+  }, [isClient, editorReady, isEditing, editContent, editorInstance]);
+
+  // Cleanup editor when not editing
+  useEffect(() => {
+    if (!isEditing && editorInstance) {
+      editorInstance.destroy().catch((error: any) => {
+        console.warn('Failed to destroy editor:', error);
+      });
+      setEditorInstance(null);
+    }
+  }, [isEditing, editorInstance]);
 
   useEffect(() => {
     if (!id) return;
@@ -29,6 +110,10 @@ export default function PostDetailPage() {
         setEditTitle(res.data.title);
         setEditContent(res.data.content);
         setEditImage(res.data.image || null);
+        setEditTemplate(res.data.template || 'template1');
+        setEditAuthor(res.data.author || '');
+        setEditCategory(res.data.category || '');
+        setEditStatus(res.data.status || 'draft');
       })
       .finally(() => setLoading(false));
   }, [id]);
@@ -89,6 +174,10 @@ export default function PostDetailPage() {
         title: editTitle,
         content: editContent,
         image: imageUrl,
+        template: editTemplate,
+        author: editAuthor,
+        category: editCategory,
+        status: editStatus,
       });
       // Reload post detail
       const res = await axios.get(`http://localhost:8080/posts/${id}`);
@@ -108,7 +197,44 @@ export default function PostDetailPage() {
 
   if (isEditing) {
     return (
-      <div className="max-w-2xl mx-auto p-8 bg-white rounded shadow text-gray-800">
+      <>
+        {/* Preview Modal */}
+        {showPreview && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
+            <div className="bg-white rounded-lg shadow-lg max-w-5xl w-full max-h-[95vh] overflow-y-auto relative">
+              <button 
+                className="absolute top-4 right-4 z-50 text-gray-500 hover:text-red-600 text-2xl bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-md" 
+                onClick={() => setShowPreview(false)}
+              >
+                &times;
+              </button>
+              
+              {/* Template Selection Header */}
+              <div className="p-6 pb-4 border-b border-gray-200">
+                <h2 className="text-2xl font-bold mb-4">Xem trước bài viết</h2>
+                <p className="text-gray-600">Template: <span className="font-medium capitalize">{editTemplate}</span></p>
+              </div>
+
+              {/* Preview Content */}
+              <div className="p-6">
+                <NewsTemplateRenderer 
+                  post={{
+                    id: post.id,
+                    title: editTitle,
+                    content: editContent,
+                    created_at: post.created_at,
+                    author: editAuthor || post.author,
+                    category: editCategory || post.category,
+                    image: editImage || post.image,
+                    template: editTemplate
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+        
+        <div className="max-w-2xl mx-auto p-8 bg-white rounded shadow text-gray-800">
         <h1 className="text-2xl font-bold mb-4">Sửa bài viết</h1>
         <form onSubmit={handleSave} className="space-y-4">
           <div>
@@ -120,13 +246,63 @@ export default function PostDetailPage() {
               required
             />
           </div>
+          
+          {/* Author và Category */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block font-semibold mb-1">Tác giả</label>
+              <input 
+                className="w-full border px-3 py-2 rounded" 
+                placeholder="Nhập tên tác giả..." 
+                value={editAuthor} 
+                onChange={(e) => setEditAuthor(e.target.value)} 
+              />
+            </div>
+            <div>
+              <label className="block font-semibold mb-1">Danh mục</label>
+              <select 
+                className="w-full border px-3 py-2 rounded bg-white" 
+                value={editCategory} 
+                onChange={(e) => setEditCategory(e.target.value)}
+              >
+                <option value="">Chọn danh mục</option>
+                <option value="Tin tức">Tin tức</option>
+                <option value="Thông báo">Thông báo</option>
+                <option value="Sự kiện">Sự kiện</option>
+                <option value="Công nghệ">Công nghệ</option>
+                <option value="Khác">Khác</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Template Selector */}
+          <div>
+            <TemplateSelect 
+              selectedTemplate={editTemplate}
+              onTemplateChange={setEditTemplate}
+              showPreview={true}
+            />
+          </div>
           <div>
             <label className="block font-semibold mb-1">Nội dung</label>
-            <CKEditor
-              editor={ClassicEditor as any}
-              data={editContent}
-              onChange={(_event: any, editor: any) => setEditContent(editor.getData())}
-            />
+            {isClient && editorReady && isEditing ? (
+              <div className="border border-gray-300 rounded bg-white">
+                {/* Toolbar riêng biệt cho decoupled editor */}
+                <div ref={toolbarRef} className="border-b border-gray-300 bg-gray-50 p-2"></div>
+                
+                {/* Editor content */}
+                <div ref={editorContainerRef} className="min-h-[300px] p-4">
+                  {/* CKEditor sẽ được khởi tạo trực tiếp vào div này */}
+                </div>
+              </div>
+            ) : (
+              <textarea
+                className="w-full border px-3 py-2 rounded h-32"
+                value={editContent}
+                onChange={e => setEditContent(e.target.value)}
+                placeholder="Nhập nội dung bài viết..."
+              />
+            )}
           </div>
           <div>
             <label className="block font-semibold mb-1">Ảnh đại diện</label>
@@ -140,6 +316,21 @@ export default function PostDetailPage() {
               onChange={handleImageChange}
             />
           </div>
+          
+          {/* Status */}
+          <div>
+            <label className="block font-semibold mb-1">Trạng thái</label>
+            <select 
+              className="w-full border px-3 py-2 rounded bg-white" 
+              value={editStatus} 
+              onChange={(e) => setEditStatus(e.target.value)}
+            >
+              <option value="draft">Bản nháp</option>
+              <option value="published">Đã xuất bản</option>
+              <option value="archived">Lưu trữ</option>
+            </select>
+          </div>
+          
           <div className="flex gap-4 mt-6">
             <button
               type="submit"
@@ -147,6 +338,14 @@ export default function PostDetailPage() {
               disabled={saving}
             >
               {saving ? 'Đang lưu...' : 'Lưu'}
+            </button>
+            <button
+              type="button"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              onClick={() => setShowPreview(true)}
+              disabled={saving}
+            >
+              Xem trước
             </button>
             <button
               type="button"
@@ -159,17 +358,40 @@ export default function PostDetailPage() {
           </div>
         </form>
       </div>
+      </>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-8 bg-white rounded shadow text-gray-800">
-      <h1 className="text-2xl font-bold mb-4">{stripHtml(post.title)}</h1>
-      {post.image && <img src={post.image} alt="Ảnh đại diện" className="mb-4 w-full max-h-64 object-cover rounded" />}
-      <div className="mb-4 text-gray-600 italic text-right">
-        Ngày tạo: {post.created_at ? new Date(post.created_at).toLocaleString() : '---'}
+    <div className="max-w-4xl mx-auto p-8 bg-white rounded shadow text-gray-800">
+      <h2 className="text-2xl font-bold mb-4">Chi tiết bài viết</h2>
+      
+      {/* Post Info */}
+      <div className="mb-6 p-4 bg-gray-50 rounded">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <div><strong>Tác giả:</strong> {post.author || 'Chưa có'}</div>
+          <div><strong>Danh mục:</strong> {post.category || 'Chưa có'}</div>
+          <div><strong>Trạng thái:</strong> {post.status || 'draft'}</div>
+          <div><strong>Template:</strong> {post.template || 'template1'}</div>
+        </div>
       </div>
-      <div className="prose" dangerouslySetInnerHTML={{ __html: post.content }} />
+      
+      {/* Post Content with Template */}
+      <div className="mb-6">
+        <NewsTemplateRenderer 
+          post={{
+            id: post.id,
+            title: post.title,
+            content: post.content,
+            created_at: post.created_at,
+            author: post.author,
+            category: post.category,
+            image: post.image,
+            template: post.template || 'template1'
+          }}
+        />
+      </div>
+      
       <div className="flex gap-4 mt-8">
         <button className="bg-blue-600 text-white px-4 py-2 rounded" onClick={() => router.back()}>Quay lại</button>
         <button className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700" onClick={handleEdit}>Sửa</button>

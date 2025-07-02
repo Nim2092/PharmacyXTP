@@ -3,6 +3,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import Image from "next/image";
 import style from "@/app/style/styles.module.css";
 import Link from 'next/link';
+// Import mock API và environment config
+import { postsAPI, formatDate } from '@/data/mockPosts';
+import { ENV_CONFIG, envLog } from '@/config/environment';
 export default function Blog() {
     const technologys = [
         {
@@ -33,12 +36,14 @@ export default function Blog() {
     ]
 
     const [posts, setPosts] = useState<any[]>([]);
+    const [currentActiveTab, setCurrentActiveTab] = useState<string>("promotion");
 
     const getActiveTab = () => {
         return localStorage.getItem("selectedTab") || "promotion";
     };
 
     const onTabClick = (tab: string) => {
+        setCurrentActiveTab(tab);
         localStorage.setItem("selectedTab", tab);
         const tabs = document.querySelectorAll("li");
         tabs.forEach((tabElement) => tabElement.classList.remove(style.active));
@@ -58,13 +63,39 @@ export default function Blog() {
 
     useEffect(() => {
         const defaultTab = getActiveTab();
+        setCurrentActiveTab(defaultTab);
         document.querySelector(`li[data-tab="${defaultTab}"]`)?.classList.add(style.active);
         onTabClick(defaultTab);
 
-        // Lấy danh sách bài viết cho blog-technology
-        fetch('http://localhost:8080/posts')
-            .then(res => res.json())
-            .then(data => setPosts(data));
+        // Load posts data với mock API
+        const loadPosts = async () => {
+            try {
+                envLog('Loading posts data...', { useMockData: ENV_CONFIG.USE_MOCK_DATA });
+                
+                if (ENV_CONFIG.USE_MOCK_DATA) {
+                    // Sử dụng mock data
+                    envLog('Using mock data for posts');
+                    const mockPosts = await postsAPI.getAllPosts();
+                    setPosts(mockPosts);
+                    envLog('Mock posts loaded successfully', { count: mockPosts.length });
+                } else {
+                    // Sử dụng real API
+                    envLog('Using real API for posts');
+                    const response = await fetch(`${ENV_CONFIG.API_BASE_URL}${ENV_CONFIG.POSTS_ENDPOINT}`);
+                    const data = await response.json();
+                    setPosts(data);
+                    envLog('Real API posts loaded successfully', { count: data.length });
+                }
+            } catch (error) {
+                envLog('Error loading posts data', error);
+                // Fallback to mock data on error
+                envLog('Falling back to mock data due to error');
+                const fallbackPosts = await postsAPI.getAllPosts();
+                setPosts(fallbackPosts);
+            }
+        };
+
+        loadPosts();
     }, []);
     return (
         <section className={`${style.blog}`}>
@@ -109,14 +140,23 @@ export default function Blog() {
                     <div className={`${style.nav} w-full mt-10`}>
                         <ul className="flex p-0 m-0 list-none justify-between border-b-2 border-customGray">
                             <li
-                                style={{ width: "50%" }}
+                                style={{ 
+                                    width: currentActiveTab === "technology" ? "100%" : "50%",
+                                    textAlign: currentActiveTab === "technology" ? "center" : "left",
+                                    transition: "all 0.3s ease"
+                                }}
                                 data-tab="promotion"
                                 onClick={() => onTabClick("promotion")}
+                                className={currentActiveTab === "technology" ? "hidden" : ""}
                             >
                                 Tin tức
                             </li>
                             <li
-                                style={{ width: "50%" }}
+                                style={{ 
+                                    width: currentActiveTab === "technology" ? "100%" : "50%",
+                                    textAlign: currentActiveTab === "technology" ? "center" : "right",
+                                    transition: "all 0.3s ease"
+                                }}
                                 data-tab="technology"
                                 onClick={() => onTabClick("technology")}
                             >
@@ -200,35 +240,81 @@ export default function Blog() {
                     </div>
                     <div id='blog-technology' className={`${style.proContent} mt-9 hidden`} style={{ display: "none" }} >
                         {posts.length === 0 ? (
-                            <div>Đang tải...</div>
+                            <div className="text-center py-8">Đang tải...</div>
                         ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {posts.map((post: any) => (
-                                    <div className={`${style.item} flex flex-col items-center`} key={post.id}>
-                                        <Link href={`/news/${post.id}`} className="block w-full">
-                                            <div className="w-96 aspect-[16/9] bg-gray-100 rounded overflow-hidden relative">
-                                                <Image
-                                                    src={post.image || "/blog/default.jpg"}
-                                                    alt={stripHtml(post.title)}
-                                                    fill
-                                                    className="object-cover rounded"
-                                                />
+                            <div className="flex flex-col lg:flex-row gap-8">
+                                {/* Sidebar bên trái - Danh sách tin tức blog */}
+                                <div className="w-full lg:w-1/3">
+                                    <h3 className="text-xl font-bold mb-6 text-blue-800 border-b-2 border-blue-800 pb-2">
+                                        Tin tức Blog
+                                    </h3>
+                                    <div className="space-y-4">
+                                        {posts.slice(0, 8).map((post: any) => (
+                                            <div key={post.id} className="border-b border-gray-200 pb-4">
+                                                <Link href={`/news/${post.id}`} className="block hover:text-blue-600 transition-colors">
+                                                    <h4 className="font-medium text-sm leading-tight mb-2 line-clamp-2">
+                                                        {stripHtml(post.title)}
+                                                    </h4>
+                                                    <p className="text-gray-500 text-xs">
+                                                        {post.created_at ? formatDate(post.created_at) : ''}
+                                                    </p>
+                                                </Link>
                                             </div>
-                                    
-                                        </Link>
-                                        <div className="w-96 mt-3 flex flex-col items-center ml-20">
-                                            <Link href={`/news/${post.id}`} className="w-full">
-                                                <h4 className="font-semibold ml-16 text-lg mb-2 leading-snug text-blue-800 text-center break-words whitespace-normal w-full max-w-[320px] line-clamp-2 overflow-hidden text-ellipsis">
-                                                    {stripHtml(post.title)}
-                                                </h4>
-                                            </Link>
-                                            <p className="text-gray-700 line-clamp-3 overflow-hidden text-ellipsis ml-16">{stripHtml(post.content)}</p>
-                                            <p className="text-gray-500 text-sm text-center mb-2 mr-44">
-                                                {post.created_at ? new Date(post.created_at).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : ''}
-                                            </p>
-                                        </div>
+                                        ))}
                                     </div>
-                                ))}
+                                    <div className="mt-6">
+                                        <Link 
+                                            href="/news" 
+                                            className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm"
+                                        >
+                                            Xem tất cả →
+                                        </Link>
+                                    </div>
+                                </div>
+
+                                {/* Main content bên phải - Nội dung chính */}
+                                <div className="w-full lg:w-2/3">
+                                    <div className="grid grid-cols-1 gap-6">
+                                        {posts.slice(0, 4).map((post: any) => (
+                                            <article key={post.id} className="flex flex-col sm:flex-row gap-4 border-b border-gray-200 pb-6">
+                                                <Link href={`/news/${post.id}`} className="flex-shrink-0">
+                                                    <div className="w-full sm:w-48 h-32 bg-gray-100 rounded overflow-hidden relative">
+                                                        <Image
+                                                            src={post.image || "/blog/phong-kham-da-khoa-vien-doan.jpg"}
+                                                            alt={stripHtml(post.title)}
+                                                            fill
+                                                            className="object-cover"
+                                                        />
+                                                    </div>
+                                                </Link>
+                                                <div className="flex-1">
+                                                    <Link href={`/news/${post.id}`} className="block">
+                                                        <h3 className="font-bold text-lg mb-2 leading-tight text-blue-800 hover:text-blue-600 transition-colors line-clamp-2">
+                                                            {stripHtml(post.title)}
+                                                        </h3>
+                                                    </Link>
+                                                    <p className="text-gray-700 mb-3 line-clamp-3">
+                                                        {stripHtml(post.content)}
+                                                    </p>
+                                                    <div className="flex items-center justify-between text-sm text-gray-500">
+                                                        <span>{post.created_at ? formatDate(post.created_at) : ''}</span>
+                                                        <span>{post.author || 'Admin'}</span>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        ))}
+                                    </div>
+                                    
+                                    {/* Phân trang hoặc link xem thêm */}
+                                    <div className="mt-8 text-center">
+                                        <Link 
+                                            href="/news" 
+                                            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                                        >
+                                            Xem thêm bài viết
+                                        </Link>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </div>
@@ -241,10 +327,6 @@ export default function Blog() {
 // Hàm loại bỏ thẻ HTML khỏi chuỗi
 function stripHtml(html: string) {
     if (!html) return '';
-    if (typeof window !== 'undefined') {
-        const div = document.createElement('div');
-        div.innerHTML = html;
-        return div.textContent || div.innerText || '';
-    }
+    // Sử dụng regex để đảm bảo tính nhất quán giữa server và client
     return html.replace(/<[^>]+>/g, '');
 }

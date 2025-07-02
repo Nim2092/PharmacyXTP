@@ -1,19 +1,8 @@
 // Custom Edge Handles Plugin cho CKEditor với 9 handles + drag & drop - COMPLETE VERSION
-import { Plugin } from '@ckeditor/ckeditor5-core';
+// Không import CKEditor modules để tránh duplicated-modules error với build classic
 
-// Plugin class để CKEditor 5 có thể load được
-export class CustomEdgeHandlesPlugin extends Plugin {
-  static get pluginName() {
-    return 'CustomEdgeHandlesPlugin';
-  }
-
-  constructor(editor: any) {
-    super(editor);
-    this.init();
-  }
-
-  init(): void {
-    const editor = this.editor;
+// Function để khởi tạo custom handles cho editor
+export function initializeCustomHandles(editor: any): void {
   let isResizing = false;
   let isDragging = false;
   let resizeData: any = null;
@@ -58,29 +47,6 @@ export class CustomEdgeHandlesPlugin extends Plugin {
     dragHandle.className = 'ck-drag-handle ck-widget__resizer__handle';
     dragHandle.innerHTML = '⋮⋮';
     dragHandle.title = 'Kéo để di chuyển ảnh';
-    dragHandle.style.cssText = `
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 24px;
-      height: 16px;
-      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-      border: 2px solid #fff;
-      border-radius: 8px;
-      cursor: move;
-      z-index: 999999;
-      box-shadow: 0 2px 8px rgba(108, 92, 231, 0.4);
-      pointer-events: auto;
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      opacity: 1 !important;
-      font-size: 8px;
-      color: white;
-      font-weight: bold;
-      line-height: 1;
-    `;
     
     // Event listener cho drag handle
     dragHandle.addEventListener('mousedown', (e) => {
@@ -101,21 +67,8 @@ export class CustomEdgeHandlesPlugin extends Plugin {
     corners.forEach(corner => {
       const handle = document.createElement('div');
       handle.className = `ck-corner-handle ck-corner-handle-${corner.name} ck-widget__resizer__handle`;
-      handle.style.cssText = `
-        position: absolute;
-        ${corner.position}
-        width: 12px;
-        height: 12px;
-        background: linear-gradient(135deg, #00cec9, #55efc4);
-        border: 2px solid #fff;
-        border-radius: 3px;
-        cursor: ${corner.cursor};
-        z-index: 999999;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        pointer-events: auto;
-        display: block !important;
-        opacity: 1 !important;
-      `;
+      handle.title = `Resize ${corner.name}`;
+      handle.style.cssText = corner.position + `cursor: ${corner.cursor};`;
       
       // Event listener cho corner handle
       handle.addEventListener('mousedown', (e) => {
@@ -130,23 +83,7 @@ export class CustomEdgeHandlesPlugin extends Plugin {
     // 4 EDGE HANDLES
     const leftHandle = document.createElement('div');
     leftHandle.className = 'ck-custom-edge-handle ck-custom-edge-handle-left ck-widget__resizer__handle';
-    leftHandle.style.cssText = `
-      position: absolute;
-      left: -8px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 14px;
-      height: 28px;
-      background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-      border: 2px solid #fff;
-      border-radius: 6px;
-      cursor: w-resize;
-      z-index: 999999;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-      pointer-events: auto;
-      display: block !important;
-      opacity: 1 !important;
-    `;
+    leftHandle.title = 'Resize left';
     leftHandle.addEventListener('mousedown', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -155,23 +92,7 @@ export class CustomEdgeHandlesPlugin extends Plugin {
 
     const rightHandle = document.createElement('div');
     rightHandle.className = 'ck-custom-edge-handle ck-custom-edge-handle-right ck-widget__resizer__handle';
-    rightHandle.style.cssText = `
-      position: absolute;
-      right: -8px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 14px;
-      height: 28px;
-      background: linear-gradient(135deg, #4ecdc4, #6ee8e0);
-      border: 2px solid #fff;
-      border-radius: 6px;
-      cursor: e-resize;
-      z-index: 999999;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-      pointer-events: auto;
-      display: block !important;
-      opacity: 1 !important;
-    `;
+    rightHandle.title = 'Resize right';
     rightHandle.addEventListener('mousedown', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -180,23 +101,7 @@ export class CustomEdgeHandlesPlugin extends Plugin {
 
     const topHandle = document.createElement('div');
     topHandle.className = 'ck-custom-edge-handle ck-custom-edge-handle-top ck-widget__resizer__handle';
-    topHandle.style.cssText = `
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 28px;
-      height: 14px;
-      background: linear-gradient(135deg, #fd79a8, #fdcb6e);
-      border: 2px solid #fff;
-      border-radius: 6px;
-      cursor: n-resize;
-      z-index: 999999;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-      pointer-events: auto;
-      display: block !important;
-      opacity: 1 !important;
-    `;
+    topHandle.title = 'Resize top';
     topHandle.addEventListener('mousedown', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -205,23 +110,7 @@ export class CustomEdgeHandlesPlugin extends Plugin {
 
     const bottomHandle = document.createElement('div');
     bottomHandle.className = 'ck-custom-edge-handle ck-custom-edge-handle-bottom ck-widget__resizer__handle';
-    bottomHandle.style.cssText = `
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 28px;
-      height: 14px;
-      background: linear-gradient(135deg, #a29bfe, #74b9ff);
-      border: 2px solid #fff;
-      border-radius: 6px;
-      cursor: s-resize;
-      z-index: 999999;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-      pointer-events: auto;
-      display: block !important;
-      opacity: 1 !important;
-    `;
+    bottomHandle.title = 'Resize bottom';
     bottomHandle.addEventListener('mousedown', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -620,5 +509,4 @@ export class CustomEdgeHandlesPlugin extends Plugin {
   console.log('- debugCKEditorHandles()');
   console.log('- forceCreateHandlesOnWidget(index)');
   console.log('- testCKEditorHTMLOutput()');
-  }
 }

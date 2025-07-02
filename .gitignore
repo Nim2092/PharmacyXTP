@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# uploaded files with extremely long names
+public/uploads/*-Về-chúng-tôi-Hitech-*
+public/uploads/*-NỘI-CHUYỂN-GIAO-*

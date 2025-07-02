@@ -29,12 +29,12 @@ const defaultData: RecruitmentPageData = {
   hexagonImages: [],
   goals: [],
   studentImages: [],
-  studentProject2: [], // Mặc định là mảng
+  studentProject2: [],
   studentContent: '',
   recruitments: [],
 };
 
-const CKEditor = dynamic(() => import('@ckeditor/ckeditor5-react').then(mod => mod.CKEditor), { ssr: false });
+// CKEditor React wrapper removed to use build classic directly
 export default function AdminRecruitmentPage() {
   const [data, setData] = useState<RecruitmentPageData>(defaultData);
   const [saving, setSaving] = useState(false);
@@ -52,12 +52,20 @@ export default function AdminRecruitmentPage() {
   const [studentProject2Files, setStudentProject2Files] = useState<(File | null)[]>([]);
   const ClassicEditorRef = useRef<any>(null);
   const [editorReady, setEditorReady] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [pendingData, setPendingData] = useState<any>(null);
+  const [editorInstance, setEditorInstance] = useState<any>(null);
+  const editorContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
     let mounted = true;
-    import('@ckeditor/ckeditor5-build-classic').then((mod) => {
+    import('@ckeditor/ckeditor5-build-decoupled-document').then((mod) => {
       if (mounted) {
         ClassicEditorRef.current = mod.default;
         setEditorReady(true);
@@ -65,6 +73,50 @@ export default function AdminRecruitmentPage() {
     });
     return () => { mounted = false; };
   }, []);
+
+  // Initialize CKEditor when ready
+  useEffect(() => {
+    if (isClient && editorReady && ClassicEditorRef.current && editorContainerRef.current && !editorInstance) {
+      const initEditor = async () => {
+        try {
+          const editor = await ClassicEditorRef.current.create(editorContainerRef.current, editorConfig);
+          setEditorInstance(editor);
+          
+          // Set initial content
+          if (data.studentContent) {
+            editor.setData(data.studentContent);
+          }
+          
+          // Listen for content changes
+          editor.model.document.on('change:data', () => {
+            const newContent = editor.getData();
+            setData((prev: any) => ({ ...prev, studentContent: newContent }));
+          });
+          
+          console.log('✅ CKEditor ready for recruitment admin');
+        } catch (error) {
+          console.error('❌ Failed to initialize CKEditor:', error);
+        }
+      };
+      
+      initEditor();
+    }
+  }, [isClient, editorReady, ClassicEditorRef.current, editorInstance, data.studentContent]);
+
+  // Cleanup editor
+  useEffect(() => {
+    return () => {
+      if (editorInstance && typeof editorInstance.destroy === 'function') {
+        try {
+          if (!editorInstance.isDestroyed) {
+            editorInstance.destroy().catch(console.warn);
+          }
+        } catch (error) {
+          console.warn('Error destroying editor:', error);
+        }
+      }
+    };
+  }, [editorInstance]);
 
   // Khi load data
   useEffect(() => {
@@ -291,11 +343,6 @@ export default function AdminRecruitmentPage() {
     setShowPreview(true);
   };
 
-  // Handler cho CKEditor
-  const handleStudentContentChange = (event: any, editor: any) => {
-    const html = editor.getData();
-    setData((prev: any) => ({ ...prev, studentContent: html }));
-  };
   // Custom upload adapter cho CKEditor
   function uploadAdapter(loader: any) {
     return {
@@ -503,14 +550,14 @@ export default function AdminRecruitmentPage() {
             {/* --- BẮT ĐẦU PHẦN PREVIEW --- */}
             {/* Banner */}
             <section className="mb-8">
-              <img src={pendingData.banner} alt="Banner" className="w-full h-64 object-cover rounded" />
+              {pendingData.banner && <img src={pendingData.banner} alt="Banner" className="w-full h-64 object-cover rounded" />}
               <div className="font-bold text-yellow-600 text-2xl text-center my-2">{pendingData.bannerTitle}</div>
               <div className="text-3xl font-bold text-blue-700 text-center">{pendingData.mainTitle}</div>
             </section>
 
             {/* Logo & Giới thiệu */}
             <section className="flex flex-row w-full justify-center items-start gap-8 mt-4 mb-8">
-              <img src={pendingData.intro.logo} alt="Logo" className="w-[220px] h-auto object-contain" />
+              {pendingData.intro?.logo && <img src={pendingData.intro.logo} alt="Logo" className="w-[220px] h-auto object-contain" />}
               <div className="max-w-[900px] text-[20px] leading-[1.4] text-black text-justify">
                 {pendingData.intro.text}
               </div>
@@ -528,7 +575,7 @@ export default function AdminRecruitmentPage() {
               <div className="w-[98%] bg-[#f7f7f7] rounded-lg flex flex-row justify-center items-stretch gap-8 py-10 px-4">
                 {pendingData.goals.map((goal: {icon: string; title: string; desc: string}, idx: number) => (
                   <div key={idx} className="flex-1 flex flex-col items-center text-center px-4">
-                    <img src={goal.icon} alt="" className="w-16 h-16 mb-2" />
+                    {goal.icon && <img src={goal.icon} alt="" className="w-16 h-16 mb-2" />}
                     <h3 className="text-2xl font-semibold mb-2">{goal.title}</h3>
                     <p className="text-lg text-gray-800">{goal.desc}</p>
                   </div>
@@ -619,7 +666,7 @@ export default function AdminRecruitmentPage() {
       />
       <input type="file" accept="image/*" onChange={handleBannerFileChange} className="block" />
     </div>
-    <img src={bannerPreview || data.banner} alt="Banner" className="h-32 mt-2 rounded shadow" />
+    {(bannerPreview || data.banner) && <img src={bannerPreview || data.banner} alt="Banner" className="h-32 mt-2 rounded shadow" />}
   </section>
 
   {/* Banner Title */}
@@ -659,7 +706,7 @@ export default function AdminRecruitmentPage() {
       />
       <input type="file" accept="image/*" onChange={handleLogoFileChange} className="block" />
     </div>
-    <img src={logoPreview || data.intro.logo} alt="Logo" className="h-16 mt-2 rounded" />
+    {(logoPreview || data.intro.logo) && <img src={logoPreview || data.intro.logo} alt="Logo" className="h-16 mt-2 rounded" />}
     <label className="block font-semibold mt-4 mb-1">Giới thiệu</label>
     <textarea
       value={data.intro.text}
@@ -690,7 +737,7 @@ export default function AdminRecruitmentPage() {
           placeholder="Mô tả"
         />
         <input type="file" accept="image/*" onChange={e => handleHexagonImageFileChange(idx, e)} className="block" />
-        <img src={hexagonPreviews[idx] || img.src} alt="" className="h-12 w-12 rounded" />
+        {(hexagonPreviews[idx] || img.src) && <img src={hexagonPreviews[idx] || img.src} alt="" className="h-12 w-12 rounded" />}
         <button type="button" onClick={() => removeHexagonImage(idx)} className="text-red-500 font-bold ml-2">X</button>
       </div>
     ))}
@@ -724,7 +771,7 @@ export default function AdminRecruitmentPage() {
           placeholder="Mô tả"
         />
         <input type="file" accept="image/*" onChange={e => handleGoalIconFileChange(idx, e)} className="block" />
-        <img src={goalIconPreviews[idx] || goal.icon} alt="" className="h-10 w-10 rounded" />
+        {(goalIconPreviews[idx] || goal.icon) && <img src={goalIconPreviews[idx] || goal.icon} alt="" className="h-10 w-10 rounded" />}
         <button type="button" onClick={() => removeGoal(idx)} className="text-red-500 font-bold ml-2">X</button>
       </div>
     ))}
@@ -751,7 +798,7 @@ export default function AdminRecruitmentPage() {
           placeholder="Mô tả"
         />
         <input type="file" accept="image/*" onChange={e => handleStudentImageFileChange(idx, e)} className="block" />
-        <img src={studentImagePreviews[idx] || img.src} alt="" className="h-12 w-12 rounded" />
+        {(studentImagePreviews[idx] || img.src) && <img src={studentImagePreviews[idx] || img.src} alt="" className="h-12 w-12 rounded" />}
         <button type="button" onClick={() => removeStudentImage(idx)} className="text-red-500 font-bold ml-2">X</button>
       </div>
     ))}
@@ -782,7 +829,7 @@ export default function AdminRecruitmentPage() {
           placeholder="Mô tả"
         />
         <input type="file" accept="image/*" onChange={e => handleStudentProject2FileChange(idx, e)} className="block" />
-        <img src={studentProject2Previews[idx] || img.src} alt={img.alt} className="h-12 w-12 rounded" />
+        {(studentProject2Previews[idx] || img.src) && <img src={studentProject2Previews[idx] || img.src} alt={img.alt} className="h-12 w-12 rounded" />}
         <button type="button" onClick={() => removeStudentProject2Image(idx)} className="text-red-500 font-bold ml-2">X</button>
       </div>
     ))}
@@ -792,13 +839,20 @@ export default function AdminRecruitmentPage() {
   {/* Nội dung sinh viên thực hành (CKEditor) */}
   <section className="mb-6">
     <label className="block font-semibold mb-1">Nội dung sinh viên thực hành</label>
-    <div className="border rounded">
-      {typeof window !== 'undefined' && editorReady && ClassicEditorRef.current && (
-        <CKEditor
-          editor={ClassicEditorRef.current}
-          data={data.studentContent || ''}
-          config={editorConfig}
-          onChange={handleStudentContentChange}
+    <div className="border rounded bg-white">
+      {isClient && editorReady && ClassicEditorRef.current && (
+        <div className="p-4">
+          <div ref={editorContainerRef} className="min-h-[300px]">
+            {/* CKEditor sẽ được khởi tạo trực tiếp vào div này */}
+          </div>
+        </div>
+      )}
+      {(!isClient || !editorReady) && (
+        <textarea
+          className="w-full border-0 p-4 min-h-[200px] resize-none"
+          placeholder="Đang tải editor..."
+          value={data.studentContent || ''}
+          onChange={(e) => setData((prev: any) => ({ ...prev, studentContent: e.target.value }))}
         />
       )}
     </div>
