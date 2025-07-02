@@ -40,8 +40,14 @@ export default function partner() {
                     <div className="w-full overflow-hidden bg-white py-4 relative">
                         <div className="flex gap-2 animate-slide">
                             {[...logos, ...logos].map((logo, index) => (
-                                <div key={index} className="flex-shrink-0 w-[calc(100%/6)]">
-                                    <Image width={1000} height={300} className='w-auto h-auto max-w-[80%] max-h-[100%] min-w-[60%] min-h-[80%]' src={logo} alt={`Logo ${index + 1}`} />
+                                <div key={index} className="partner-logo-wrapper">
+                                    <Image
+                                        width={160}
+                                        height={80}
+                                        className="partner-logo"
+                                        src={logo}
+                                        alt={`Logo ${index + 1}`}
+                                    />
                                 </div>
                             ))}
                         </div>

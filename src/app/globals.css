@@ -43,3 +43,42 @@ body {
     top: 8vh;
   }
 }
+
+/* Logo partner styles */
+.partner-logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  padding: 10px 20px;
+  background: transparent;
+}
+.partner-logo {
+  max-height: 80px;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  max-width: 140px;
+}
+@media (max-width: 900px) {
+  .partner-logo-wrapper {
+    height: 70px;
+    padding: 8px 10px;
+  }
+  .partner-logo {
+    max-height: 50px;
+    max-width: 100px;
+  }
+}
+@media (max-width: 600px) {
+  .partner-logo-wrapper {
+    height: 50px;
+    padding: 4px 4px;
+  }
+  .partner-logo {
+    max-height: 30px;
+    max-width: 70px;
+  }
+}

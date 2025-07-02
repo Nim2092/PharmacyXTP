@@ -105,7 +105,7 @@ export default function PostDetailPage() {
   useEffect(() => {
     if (!id) return;
     axios.get(`http://localhost:8080/posts/${id}`)
-      .then(res => {
+      .then((res: any) => {
         setPost(res.data);
         setEditTitle(res.data.title);
         setEditContent(res.data.content);
