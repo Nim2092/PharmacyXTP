@@ -267,46 +267,51 @@ export default function recruitment() {
             </section>
 
             {/* Hexagon Images động */}
-            <section
-                className="w-full px-4 py-16"
-                style={{ marginTop: 100 }}
-            >
+            <section className="w-full px-4 py-16">
                 <div className="max-w-7xl mx-auto">
-                    {/* Desktop Layout (≥1332px) */}
-                    <div className="hidden xl:flex flex-wrap justify-center items-center gap-y-0" style={{ minWidth: '1332px' }}>
-                        {recruitmentData?.hexagonImages?.map((img: any, idx: number) => (
-                            <HexagonImage key={idx} src={img.src} alt={img.alt} className={idx % 2 === 0 ? "mt-12" : ""} />
-                        ))}
-                    </div>
-                    
-                    {/* Tablet Layout (768px - 1331px) */}
-                    <div className="hidden md:grid xl:hidden grid-cols-3 gap-6 justify-items-center">
-                        {recruitmentData?.hexagonImages?.map((img: any, idx: number) => (
-                            <div key={idx} className="relative">
-                                <HexagonImage 
-                                    src={img.src} 
-                                    alt={img.alt} 
-                                    style={{ 
-                                        width: '200px',
-                                        margin: '0'
-                                    }} 
-                                />
+                    {/* Desktop: 3 ảnh trên, 2 ảnh dưới so le */}
+                    <div className="hidden md:grid grid-rows-2 grid-cols-3 gap-y-8 gap-x-8 justify-items-center items-center">
+                        {/* Hàng trên */}
+                        {recruitmentData?.hexagonImages?.slice(0, 3).map((img: any, idx: number) => (
+                            <div key={idx} className="row-start-1 col-span-1 flex justify-center">
+                                <HexagonImage src={img.src} alt={img.alt} />
                             </div>
                         ))}
+                        {/* Hàng dưới: bắt đầu từ cột 2 và 3 */}
+                        {recruitmentData?.hexagonImages?.[3] && (
+                            <div className="row-start-2 col-start-2 flex justify-center">
+                                <HexagonImage src={recruitmentData.hexagonImages[3].src} alt={recruitmentData.hexagonImages[3].alt} />
+                            </div>
+                        )}
+                        {recruitmentData?.hexagonImages?.[4] && (
+                            <div className="row-start-2 col-start-3 flex justify-center">
+                                <HexagonImage src={recruitmentData.hexagonImages[4].src} alt={recruitmentData.hexagonImages[4].alt} />
+                            </div>
+                        )}
                     </div>
-                    
-                    {/* Mobile Layout (≤767px) */}
-                    <div className="grid md:hidden grid-cols-2 gap-4 justify-items-center">
-                        {recruitmentData?.hexagonImages?.map((img: any, idx: number) => (
-                            <div key={idx} className="relative">
-                                <HexagonImage 
-                                    src={img.src} 
-                                    alt={img.alt} 
-                                    style={{ 
-                                        width: '140px',
-                                        margin: '0'
-                                    }} 
-                                />
+                    {/* Tablet: 2-2-1 */}
+                    <div className="hidden sm:grid md:hidden grid-rows-3 grid-cols-2 gap-y-8 gap-x-8 justify-items-center items-center">
+                        {recruitmentData?.hexagonImages?.slice(0, 2).map((img: any, idx: number) => (
+                            <div key={idx} className="row-start-1 col-span-1 flex justify-center">
+                                <HexagonImage src={img.src} alt={img.alt} />
+                            </div>
+                        ))}
+                        {recruitmentData?.hexagonImages?.slice(2, 4).map((img: any, idx: number) => (
+                            <div key={idx+2} className="row-start-2 col-span-1 flex justify-center">
+                                <HexagonImage src={img.src} alt={img.alt} />
+                            </div>
+                        ))}
+                        {recruitmentData?.hexagonImages?.[4] && (
+                            <div className="row-start-3 col-span-2 flex justify-center">
+                                <HexagonImage src={recruitmentData.hexagonImages[4].src} alt={recruitmentData.hexagonImages[4].alt} />
+                            </div>
+                        )}
+                    </div>
+                    {/* Mobile: 1 ảnh mỗi dòng */}
+                    <div className="grid sm:hidden grid-rows-5 grid-cols-1 gap-y-6 justify-items-center items-center">
+                        {recruitmentData?.hexagonImages?.slice(0, 5).map((img: any, idx: number) => (
+                            <div key={idx} className="flex justify-center">
+                                <HexagonImage src={img.src} alt={img.alt} />
                             </div>
                         ))}
                     </div>
@@ -457,23 +462,29 @@ export default function recruitment() {
        {/* --- ẢNH SINH VIÊN THỰC HÀNH DỰ ÁN 2 + NỘI DUNG SINH VIÊN THỰC HÀNH (CKEditor) --- */}
             {(recruitmentData?.studentProject2?.length > 0 || recruitmentData?.studentContent) && (
                 <section className="w-full flex flex-col items-center mt-16 mb-8 px-4">
+                    <h2 className="text-[32px] lg:text-[38px] font-bold uppercase mb-8 text-[#005db2]" style={{fontFamily: 'VIE-HandelGothic, sans-serif', letterSpacing: 'normal', lineHeight: 1.33}}>
+                        {recruitmentData?.studentProject2Title || 'ẢNH SINH VIÊN THỰC HÀNH DỰ ÁN'}
+                    </h2>
                     <div className="flex flex-col lg:flex-row w-full max-w-7xl mx-auto gap-6 lg:gap-8">
-                        {/* Ảnh bên trái động - Chỉ hiển thị trên desktop */}
-                        <div className="hidden lg:flex flex-col gap-6 flex-shrink-0 items-start w-[400px]">
-                            {recruitmentData?.studentProject2?.map((img: any, idx: number) => (
-                                <div key={idx} className={`relative ${idx % 2 === 1 ? "ml-8" : ""}`}>
-                                    <SquareImage
-                                        src={img.src}
-                                        alt={img.alt}
-                                        className="w-full max-w-[420px] h-[250px] rounded-xl object-cover shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
-                                    />
-                                </div>
-                            ))}
+                        {/* Ảnh bên trái động - Đều đẹp, bằng nhau, responsive */}
+                        <div className="w-full lg:w-[400px] flex flex-row lg:flex-col gap-4 lg:gap-6 flex-shrink-0 items-center lg:items-start">
+                            <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 w-full">
+                                {recruitmentData?.studentProject2?.map((img: any, idx: number) => (
+                                    <div key={idx} className="w-full flex justify-center">
+                                        <img
+                                            src={img.src}
+                                            alt={img.alt}
+                                            className="w-full max-w-[320px] h-[180px] sm:h-[200px] md:h-[220px] lg:h-[250px] rounded-2xl object-cover shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                         {/* Nội dung bên phải: studentContent (CKEditor) */}
                         <div className="flex-1 flex flex-col justify-start mt-6 lg:mt-0">
                             {recruitmentData?.studentContent && (
-                                <div className="w-full text-sm sm:text-base lg:text-lg xl:text-[20px] leading-[1.6] lg:leading-[1.7] text-black bg-[#f7f7f7] rounded-lg p-4 sm:p-6 lg:p-8 shadow-lg" 
+                                <div className="w-full text-[16px] sm:text-[18px] lg:text-[20px] leading-[1.6] lg:leading-[1.7] text-[#2d2d2d] bg-[#f7f7f7] rounded-lg p-4 sm:p-6 lg:p-8 shadow-lg" 
+                                    style={{fontFamily: 'Roboto, Arial, sans-serif'}}
                                     dangerouslySetInnerHTML={{ __html: recruitmentData.studentContent }} />
                             )}
                         </div>
