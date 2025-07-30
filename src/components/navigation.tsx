@@ -140,7 +140,7 @@ export default function Navigation() {
                             </Link>
                             <ul className={`${style.subMenu} z-[99999]`}>
                                 <li>
-                                    <Link className='text-white !text-left' href={'#'}> Hitech </Link>
+                                    <Link className='text-white !text-left' href={'https://pharmacyxtp.vn/recruitment'}> Hitech </Link>
                                 </li>
                                 <li>
                                     <Link
@@ -154,7 +154,7 @@ export default function Navigation() {
                                     <Link
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className='text-white !text-left' href={'https://www.edreams.com/offers/flights/airline/VN/vietnam-airlines/?mktportal=bing&utm_id=bi_cmp-614041404_adg-1164384646735721_ad-72774248682417_kwd-72774729965455_dev-c_ext-_locphy-142921_mtype-e_ntw-o&utm_term=72774729965455&utm_content=1164384646735721&msclkid=76311a57fe331812ec6b7df8ca14984a&utm_source=bing&utm_medium=cpc&utm_campaign=B-E-GB-FL-AIRLINE-SEA-PC-R'}>Đặt vé máy bay vé máy bay vietnam airline
+                                        className='text-white !text-left' href={'https://www.nganluc.vn/'}>Đặt vé máy bay vé máy bay vietnam airline
                                     </Link>
                                 </li>
                                 <li>

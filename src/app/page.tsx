@@ -158,7 +158,7 @@ export default function Home() {
               <div className="flex-[9] bg-[#f8b133]"></div>
             </div>
             <h2 className="mt-4">
-              CÁC THỰC TẬP VIÊN ĐANG  HỌC TRÊN CÁC DỰ ÁN THỰC TẾ
+              THỰC TẬP SINH ĐANG HỌC TRÊN CÁC DỰ ÁN THỰC TẾ
             </h2>
           </div>
         </div>

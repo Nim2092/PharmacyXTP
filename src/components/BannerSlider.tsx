@@ -12,7 +12,7 @@ const SliderBanner = () => {
             title: "ỨNG DỤNG TRÍ TUỆ NHÂN TẠO ",
             til: "(AI) TRONG Y TẾ",
             description:
-                "Đưa công nghệ ( AI ) Trong việc quản trị các máy lâm sàng nâng cao độ chính sác, chống thất thoát",
+                "Đưa công nghệ ( AI ) trong việc quản trị tài chính và dự báo thu - chi trong bệnh viện.",
             bgColor: "#005DB2",
             marginTop: "-80px",
         },
@@ -23,7 +23,7 @@ const SliderBanner = () => {
             title: "CÔNG NGHỆ ( BIG DATA )",
             til: "TRONG Y TẾ",
             description:
-                "Bằng phân tích Big data, các bệnh viện hoàn toàn có thể ngăn ngừa dịch bệnh, điều trị hiệu quả và giảm chi phí cho cả bệnh viện và bệnh nhân.",
+                "Bằng phân tích Big data, bệnh viện hoàn toàn ngăn ngừa được dịch bệnh, điều trị hiệu quả và tiết kiệm chi phí cho bệnh nhân.",
             bgColor: "#0c4484",
             marginTop: "-80px",
         },
