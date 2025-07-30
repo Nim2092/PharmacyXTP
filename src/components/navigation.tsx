@@ -136,7 +136,7 @@ export default function Navigation() {
                         </li>
                         <li className='pb-7 pt-7 cursor-pointer'>
                             <Link href="/partner" className="hover:text-blue-700 transition duration-300 font-bold">
-                                Công ty liên danh
+                                Những dự án triển khai thực tế
                             </Link>
                             <ul className={`${style.subMenu} z-[99999]`}>
                                 <li>
